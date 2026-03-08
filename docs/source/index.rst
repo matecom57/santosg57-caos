@@ -20,3 +20,5 @@ Contents
 
    usage
    api
+   Caos/NONLINEAR_DYNAMICS_AND_CHAOS_Steven/c01
+
