@@ -1,7 +1,7 @@
 NONLINEAR_DYNAMICS_AND_CHAOS_C01
 ================================
 
-PREFACE TO THE SECOND EDITION
+**PREFACE TO THE SECOND EDITION**
 
 Welcome to this second edition of Nonlinear Dynamics and Chaos, now available in e-book format as well as traditional print.
 
@@ -9,19 +9,19 @@ In the twenty years since this book first appeared, the ideas and techniques of 
 
 En los veinte años transcurridos desde la publicación de este libro, las ideas y técnicas de la dinámica no lineal y el caos se han aplicado en campos tan emocionantes como la biología de sistemas, la teoría de juegos evolutiva y la sociofísica. Para que se hagan una idea de estos avances recientes, he añadido unos veinte ejercicios nuevos y sustanciales que espero les animen a aprender más. Los campos y aplicaciones incluyen (con los ejercicios asociados entre paréntesis):
 
-Animal behavior: calling rhythms of Japanese tree frogs (8.6.9) 
-Classical mechanics: driven pendulum with quadratic damping (8.5.5) 
-Ecology: predator-prey model; periodic harvesting (7.2.18, 8.5.4) 
-Evolutionary biology: survival of the fittest (2.3.5, 6.4.8) 
-Evolutionary game theory: rock-paper-scissors (6.5.20, 7.3.12) 
-Linguistics: language death (2.3.6) 
-Prebiotic chemistry: hypercycles (6.4.10) 
-Psychology and literature: love dynamics in Gone with the Wind (7.2.19) 
-Macroeconomics: Keynesian cross model of a national economy (6.4.9) 
-Mathematics: repeated exponentiation (10.4.11) 
-Neuroscience: binocular rivalry in visual perception (8.1.14, 8.2.17) 
-Sociophysics: opinion dynamics (6.4.11, 8.1.15) 
-Systems biology: protein dynamics (3.7.7, 3.7.8)
+* Animal behavior: calling rhythms of Japanese tree frogs (8.6.9) 
+* Classical mechanics: driven pendulum with quadratic damping (8.5.5) 
+* Ecology: predator-prey model; periodic harvesting (7.2.18, 8.5.4) 
+* Evolutionary biology: survival of the fittest (2.3.5, 6.4.8) 
+* Evolutionary game theory: rock-paper-scissors (6.5.20, 7.3.12) 
+* Linguistics: language death (2.3.6) 
+* Prebiotic chemistry: hypercycles (6.4.10) 
+* Psychology and literature: love dynamics in Gone with the Wind (7.2.19) 
+* Macroeconomics: Keynesian cross model of a national economy (6.4.9) 
+* Mathematics: repeated exponentiation (10.4.11) 
+* Neuroscience: binocular rivalry in visual perception (8.1.14, 8.2.17) 
+* Sociophysics: opinion dynamics (6.4.11, 8.1.15) 
+* Systems biology: protein dynamics (3.7.7, 3.7.8)
 
 Thanks to my colleagues Danny Abrams, Bob Behringer, Dirk Brockmann, Michael Elowitz, Roy Goodman, Jeff Hasty, Chad Higdon-Topaz, Mogens Jensen, Nancy Kopell, Tanya Leise, Govind Menon, Richard Murray, Mary Silber, Jim Sochacki, Jean-Luc Thiffeault, John Tyson, Chris Wiggins, and Mary Lou Zeeman for their suggestions about possible new exercises. I am especially grateful to Bard Ermentrout for devising the exercises about Japanese tree frogs (8.6.9) and binocular rivalry (8.1.14, 8.2.17), and to Jordi Garcia-Ojalvo for sharing his exercises about systems biology (3.7.7, 3.7.8).
 
@@ -35,11 +35,9 @@ Steven H. Strogatz Ithaca, New York 2014
 
 
 
+**1 OVERVIEW**
 
-
-1 OVERVIEW
-
-1.0 Chaos, Fractals, and Dynamics
+**1.0 Chaos, Fractals, and Dynamics**
 
 There is a tremendous fascination today with chaos and fractals. James Gleick’s book Chaos (Gleick 1987) was a bestseller for months—an amazing accomplishment for a book about mathematics and science. Picture books like The Beauty of Fractals by Peitgen and Richter (1986) can be found on coffee tables in living rooms everywhere. It seems that even nonmathematical people are captivated by the infinite patterns found in fractals (Figure 1.0.1). Perhaps most important of all, chaos and fractals represent hands-on mathematics that is alive and changing. You can turn on a home computer and create stunning mathematical images that no one has ever seen before.
 
@@ -57,7 +55,7 @@ Our study of dynamics begins in earnest in Chapter 2. But before digging in, we 
 
 Nuestro estudio de la dinámica comienza en serio en el Capítulo 2. Pero antes de profundizar, presentamos dos perspectivas generales del tema: una histórica y otra lógica. Nuestro tratamiento es intuitivo; más adelante se presentarán definiciones detalladas. Este capítulo concluye con una "visión dinámica del mundo", un marco que guiará nuestros estudios durante el resto del libro.
 
-1.1 Capsule History of Dynamics
+**1.1 Capsule History of Dynamics**
 
 Although dynamics is an interdisciplinary subject today, it was originally a branch of physics. The subject began in the mid-1600s, when Newton invented differential equations, discovered his laws of motion and universal gravitation, and combined them to explain Kepler’s laws of planetary motion. Specifically, Newton solved the two-body problem—the problem of calculating the motion of the earth around the sun, given the inverse-square law of gravitational attraction between them. Subsequent generations of mathematicians and physicists tried to extend Newton’s analytical methods to the three-body problem (e.g., sun, earth, and moon) but curiously this problem turned out to be much more difficult to solve. After decades of effort, it was eventually realized that the three-body problem was essentially impossible to solve, in the sense of obtaining explicit formulas for the motions of the three bodies. At this point the situation seemed hopeless.
 
@@ -80,7 +78,7 @@ Although chaos stole the spotlight, there were two other major developments in d
 
 By the 1980s many people were working on dynamics, with contributions too numerous to list. Table 1.1.1 summarizes this history.
 
-1.2 The Importance of Being Nonlinear
+**1.2 The Importance of Being Nonlinear**
 
 Now we turn from history to the logical structure of dynamics. First we need to introduce some terminology and make some distinctions.
 
@@ -88,21 +86,24 @@ There are two main types of dynamical systems: differential equations and iterat
 
 Now confining our attention to differential equations, the main distinction is between ordinary and partial differential equations. For instance, the equation for a damped harmonic oscillator
 
+.. math::
 
-
-
-
-d 2 x dx m 2 + b + kx = 0 dt dt
+   m \frac{d^2 x}{dt^2} + b \frac{dx}{dt} + kx = 0 
 
 (1)
 
-is an ordinary differential equation, because it involves only ordinary derivatives dx / dt and d2 x / dt2 . That is, there is only one independent variable, the time t. In contrast, the heat equation
+is an ordinary differential equation, because it involves only ordinary derivatives 
+dx/dt and :math:`d^2 x/dt^2`. That is, there is only one independent variable, the time t. In contrast, the heat equation
 
-∂u ∂ 2 u = ∂t ∂x2 
+.. math:: 
+
+   \frac{\partial u}{\partial t}  = \frac{\partial^2 u}{\partial x^2} 
 
  is a partial differential equation—it has both time t and space x as independent variables. Our concern in this book is with purely temporal behavior, and so we deal with ordinary differential equations almost exclusively.
 
 A very general framework for ordinary differential equations is provided by the system
+
+
 
 x  1  f 1 ( x 1 , … , x n )
 
