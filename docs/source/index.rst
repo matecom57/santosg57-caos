@@ -19,4 +19,5 @@ Contents
 .. toctree::
 
    Mathematical_Biology_I_An_Introduction_3E/index2
+   A_Practical_Approach_Dynamical_Systems_Engineers_Patricia/index2
 

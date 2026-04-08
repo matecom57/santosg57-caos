@@ -1,0 +1,730 @@
+c01
+===
+
+A_Practical_Approach_Dynamical_Systems_Engineers_Patricia_C011
+
+A Practical
+Approach to
+Dynamical Systems
+for Engineers
+PATRICIA MELLODGE
+
+CHAPTER 1
+Introduction: What Is a
+Dynamical System?
+
+p22
+
+1.1 OVERVIEW
+
+Dynamical systems are all around us: from a car traveling down the road to the ripples caused by throwing a pebble into a pond to a clock 
+pendulum swinging back and forth. But what is a dynamical system? First, let us explore the words that make up the phrase “dynamical system.” 
+The Merriam-Webster Dictionary gives these definitions:
+—--------------------------------------------------
+
+Los sistemas dinámicos nos rodean por todas partes: desde un automóvil que viaja por la carretera hasta las ondas causadas al arrojar una piedra 
+en un estanque hasta el péndulo de un reloj que se balancea hacia adelante y hacia atrás. Pero, ¿qué es un sistema dinámico? Primero, exploremos 
+las palabras que forman la frase "sistema dinámico". El Diccionario Merriam-Webster da estas definiciones:
+—--------------------------------------------------
+
+Dynamic (adjective): always active or changing; having or showing a lot of
+energy; of or relating to energy, motion, or physical force
+—--------------------------------------------------
+Dinámico (adjetivo): siempre activo o cambiante; tener o mostrar mucha energía; Perteneciente o relativo a la energía, el movimiento o la fuerza 
+física.
+—--------------------------------------------------
+
+System (noun): a group of related parts that move or work together
+—--------------------------------------------------
+Sistema (sustantivo): un grupo de partes relacionadas que se mueven o trabajan juntas
+—--------------------------------------------------
+
+The term “dynamic” gives us the idea of change or motion and can deal more specifically with physical phenomena. Mathematically, when one thinks 
+of change, derivatives should spring to mind; indeed, these are a key component of how we model dynamical systems.
+—--------------------------------------------------
+
+El término “dinámica” nos da la idea de cambio o movimiento y puede tratar más específicamente con fenómenos físicos. Matemáticamente, cuando 
+uno piensa en el cambio, las derivadas deberían venir a la mente; de hecho, estos son un componente clave de cómo modelamos los sistemas 
+dinámicos.
+—--------------------------------------------------
+
+
+The definition of “system” involves groups of related parts working together. Although this definition works in general, a diagram such as the 
+one shown in Figure 1.1 best illustrates the concept that we use throughout the book. Simply stated, a system is an entity that has an input and 
+an output. A system receives an input and produces an output based on the input and its state.
+—--------------------------------------------------
+La definición de "sistema" implica grupos de partes relacionadas que trabajan juntas. Aunque esta definición funciona en general, un diagrama 
+como el que se muestra en la figura 1.1 ilustra mejor el concepto que usamos a lo largo del libro. En pocas palabras, un sistema es una entidad 
+que tiene una entrada y una salida. Un sistema recibe una entrada y produce una salida basada en la entrada y su estado.
+
+—--------------------------------------------------
+
+
+When the two words are put together to form “dynamical system,” things get interesting. A dynamical system is one in which inputs, outputs, and 
+even the system characteristics themselves can change with time. The relationship between input and output can be modeled mathematically using 
+various techniques, such as differential and difference equations, transfer functions, and state space equations. Throughout this book, we focus 
+on two objectives: (1) investigate various techniques and analysis methods for dynamical systems and (2) apply these methods to examples of 
+real-world systems and show how they can be used in practice. As we will see, the study of dynamical systems can reveal some very interesting 
+behaviors, some desirable and some not.
+—--------------------------------------------------
+Cuando las dos palabras se juntan para formar "sistema dinámico", las cosas se ponen interesantes. Un sistema dinámico es aquel en el que las 
+entradas, las salidas e incluso las características mismas del sistema pueden cambiar con el tiempo. La relación entre la entrada y la salida se 
+puede modelar matemáticamente utilizando varias técnicas, como ecuaciones diferenciales y en diferencias, funciones de transferencia y 
+ecuaciones de espacio de estado. A lo largo de este libro, nos enfocamos en dos objetivos: (1) investigar varias técnicas y métodos de análisis 
+para sistemas dinámicos y (2) aplicar estos métodos a ejemplos de sistemas del mundo real y mostrar cómo se pueden usar en la práctica. Como 
+veremos, el estudio de los sistemas dinámicos puede revelar algunos comportamientos muy interesantes, algunos deseables y otros no.
+—--------------------------------------------------
+
+
+What about a car driving down a road makes it a dynamical system? One example is its suspension system, represented in Figure 1.2. The input to 
+this system is the road, which has a varying height as the car drives down it. The output might be the ride height of the car itself. The system 
+consists of the various components linking the road to the passenger’s body: the tires, control arm, shock absorber, chassis, and so on. When 
+you hit a bump in the road, you experience a dynamical response: perhaps your body is jarred by the sudden change in wheel height, or perhaps 
+you barely notice it. The response depends on the characteristics of the car’s suspension, which can be modeled as a mass-spring-damper system.
+—--------------------------------------------------
+
+¿Qué pasa con un automóvil que circula por una carretera lo convierte en un sistema dinámico? Un ejemplo es su sistema de suspensión, 
+representado en la Figura 1.2. La entrada a este sistema es la carretera, que tiene una altura variable a medida que el automóvil avanza por 
+ella. La salida podría ser la altura de manejo del propio automóvil. El sistema consta de los diversos componentes que unen la carretera con el 
+cuerpo del pasajero: los neumáticos, el brazo de control, el amortiguador, el chasis, etc. Cuando te encuentras con un bache en el camino, 
+experimentas una respuesta dinámica: quizás tu cuerpo se sacude por el cambio repentino en la altura de las ruedas, o quizás apenas lo notas. La 
+respuesta depende de las características de la suspensión del automóvil, que puede modelarse como un sistema masa-resorte-amortiguador.
+—--------------------------------------------------
+
+
+1.1.1 Why Do We Study Dynamic Systems?
+
+The main reasons are (1) to predict system behavior and (2) to control system behavior.
+
+—--------------------------------------------------
+Las razones principales son (1) para predecir el comportamiento del sistema y (2) para controlar el comportamiento del sistema.
+—--------------------------------------------------
+
+
+An example of a system we study for prediction is the weather. Scientists, meteorologists in particular, have spent many years and many 
+computing hours creating models used to predict the weather. We rely on these predictions to plan our daily activities, from scheduling an event 
+to deciding what to wear. As computing power advanced and more atmospheric data became available, the models used to predict the weather 
+increased in sophistication and accuracy.
+—--------------------------------------------------
+
+Un ejemplo de un sistema que estudiamos para la predicción es el clima. Los científicos, en particular los meteorólogos, han pasado muchos años 
+y muchas horas de computación creando modelos que se usan para predecir el clima. Confiamos en estas predicciones para planificar nuestras 
+actividades diarias, desde programar un evento hasta decidir qué ponernos. A medida que avanzaba la potencia informática y se disponía de más 
+datos atmosféricos, los modelos utilizados para predecir el clima aumentaron en sofisticación y precisión.
+—--------------------------------------------------
+
+
+The above example of the car suspension is another case of a systemic behavior we wish to predict. Knowing the effects of variables such as 
+spring stiffness, fluid viscosity in shock absorbers, tire pressure, and the many other parameters that go into the system allow the designers 
+to predict and therefore design a system to have the desired characteristics. Certainly, someone buying a sports car would be disappointed if 
+the vehicle handled like a school bus!
+—--------------------------------------------------
+
+El ejemplo anterior de la suspensión del automóvil es otro caso de un comportamiento sistémico que deseamos predecir. Conocer los efectos de 
+variables como la rigidez del resorte, la viscosidad del fluido en los amortiguadores, la presión de los neumáticos y muchos otros parámetros 
+que intervienen en el sistema permite a los diseñadores predecir y, por lo tanto, diseñar un sistema que tenga las características deseadas. 
+¡Ciertamente, alguien que compre un automóvil deportivo se sentiría decepcionado si el vehículo se manejara como un autobús escolar!
+—-------------------------------------------------
+
+
+There are many examples of systems whose behavior we wish to control. The previous example of the car suspension is also one of them. Many 
+modern cars now have adaptive suspension systems in which the vehicle performance through turns and over bumps in the road is monitored. Based 
+on this performance, the system is designed to adjust itself by changing the damping coefficient of the shock absorbers.
+—--------------------------------------------------
+Hay muchos ejemplos de sistemas cuyo comportamiento deseamos controlar. El ejemplo anterior de la suspensión del coche también es uno de ellos. 
+Muchos automóviles modernos ahora tienen sistemas de suspensión adaptables en los que se controla el rendimiento del vehículo a través de giros 
+y baches en la carretera. Basado en este desempeño, el sistema está diseñado para ajustarse cambiando el coeficiente de amortiguación de los 
+amortiguadores.
+—--------------------------------------------------
+
+
+Another example of controlling a system from everyday life is a thermostat like the one shown in Figure 1.3. A thermostat allows us to set a 
+comfortable temperature for the room we are in, and this temperature is maintained automatically. The temperature of the room depends on many 
+parameters, including heat sources within the room (e.g., heaters, lights, people); the amount of insulation in the walls, doors, and windows; 
+and the temperature outside the room. Designers wishing to optimize thermostat performance need to have an understanding of the temperature 
+dynamics in the room. With this knowledge, the designer can choose the controller parameters to get the best performance from the system.
+—--------------------------------------------------
+Otro ejemplo de control de un sistema de la vida cotidiana es un termostato como el que se muestra en la Figura 1.3. Un termostato nos permite 
+programar una temperatura confortable para la estancia en la que nos encontramos, y esta temperatura se mantiene automáticamente. La temperatura 
+de la habitación depende de muchos parámetros, incluidas las fuentes de calor dentro de la habitación (por ejemplo, calentadores, luces, 
+personas); la cantidad de aislamiento en las paredes, puertas y ventanas; y la temperatura fuera de la habitación. Los diseñadores que deseen 
+optimizar el rendimiento del termostato deben comprender la dinámica de la temperatura en la habitación. Con este conocimiento, el diseñador 
+puede elegir los parámetros del controlador para obtener el mejor rendimiento del sistema.
+
+—--------------------------------------------------
+
+
+The analysis strategy for a system depends on the objective. If one is trying to predict system behavior, then often the strategy is to model as 
+much of the characteristics as possible. In the case of weather, an extraordinary amount of data is gathered for use in computer models. This 
+data is taken from many different sensors to measure a number of conditions (e.g., temperature, humidity, barometric pressure) in many different 
+locations. Despite sophisticated modeling techniques, one aspect of weather systems that makes prediction so difficult is its inherently chaotic 
+behavior. This is exemplified by the thought experiment known as the butterfly effect: a butterfly flapping its wings in one part of the world 
+can cause a hurricane somewhere else weeks later. We will discuss chaos later in Chapter 4.
+—--------------------------------------------------
+La estrategia de análisis de un sistema depende del objetivo. Si uno está tratando de predecir el comportamiento del sistema, a menudo la 
+estrategia es modelar la mayor cantidad posible de características. En el caso del clima, se recopila una cantidad extraordinaria de datos para 
+su uso en modelos informáticos. Estos datos se toman de muchos sensores diferentes para medir una serie de condiciones (por ejemplo, 
+temperatura, humedad, presión barométrica) en muchos lugares diferentes. A pesar de las sofisticadas técnicas de modelado, un aspecto de los 
+sistemas meteorológicos que dificulta tanto la predicción es su comportamiento inherentemente caótico. Esto se ejemplifica con el experimento 
+mental conocido como el efecto mariposa: una mariposa que agita sus alas en una parte del mundo puede causar un huracán en otra parte semanas 
+después. Discutiremos el caos más adelante en el Capítulo 4.
+
+
+—--------------------------------------------------
+
+
+If a designer is trying to analyze a system to develop a control algorithm, the technique may not be to model as much as possible about the 
+system. In many cases, it is not practical and simply not necessary to obtain so much information. For the example of a thermostat, a 
+comprehensive model of the room would need the temperature distribution in the space. In other words, we would need to measure the temperature 
+at every point in the room. However, this kind of measurement is not practical because we cannot possibly fit that many sensors in the room. It 
+is more likely that we can get away with one, two, or four sensors by making assumptions about the temperature distribution in the room. 
+Furthermore, the control designer often relies on a relatively simple model and focuses on a sophisticated control algorithm to compensate for 
+modeling errors and uncertainty
+
+.—--------------------------------------------------
+
+Si un diseñador está tratando de analizar un sistema para desarrollar un algoritmo de control, la técnica puede no ser modelar tanto como sea 
+posible sobre el sistema. En muchos casos, no es práctico y simplemente no es necesario obtener tanta información. Para el ejemplo de un 
+termostato, un modelo integral de la habitación necesitaría la distribución de temperatura en el espacio. En otras palabras, necesitaríamos 
+medir la temperatura en cada punto de la habitación. Sin embargo, este tipo de medición no es práctico porque no podemos instalar tantos 
+sensores en la habitación. Es más probable que podamos salirnos con uno, dos o cuatro sensores haciendo suposiciones sobre la distribución de la 
+temperatura en la habitación. Además, el diseñador de control a menudo se basa en un modelo relativamente simple y se enfoca en un algoritmo de 
+control sofisticado para compensar los errores de modelado y la incertidumbre.
+—--------------------------------------------------
+
+
+
+1.2 TYPES OF SYSTEMS
+
+Dynamical systems can be categorized by their characteristics. In this section, we discuss several of these categories and give examples of each 
+type. Understanding the type of system you are dealing with is important because it will drive which techniques are available for you to use. 
+Serious problems can occur if analysis and design methods are used on the wrong type of system!
+—--------------------------------------------------
+Los sistemas dinámicos se pueden clasificar por sus características. En esta sección, analizamos varias de estas categorías y damos ejemplos de 
+cada tipo. Comprender el tipo de sistema con el que está tratando es importante porque determinará qué técnicas están disponibles para su uso. 
+¡Pueden ocurrir serios problemas si los métodos de análisis y diseño se utilizan en el tipo de sistema incorrecto!
+
+—--------------------------------------------------
+
+
+
+1.2.1 Continuous versus Discrete
+
+Consider the above example of a car suspension system. A plot of the car’s ride height versus time after going over a bump may look something 
+like the curve shown in Figure 1.4. At every instant of time, we can get a value for the car’s height. A fraction of an instant later, we can 
+get another value. In fact, we can get a different value at every instant in time. This is an example of a continuous-time system.
+—--------------------------------------------------
+Considere el ejemplo anterior de un sistema de suspensión de automóvil. Un gráfico de la altura de conducción del automóvil frente al tiempo 
+después de pasar por un bache puede parecerse a la curva que se muestra en la Figura 1.4. En cada instante de tiempo, podemos obtener un valor 
+para la altura del automóvil. Una fracción de un instante después, podemos obtener otro valor. De hecho, podemos obtener un valor diferente en 
+cada instante de tiempo. Este es un ejemplo de un sistema de tiempo continuo.
+
+—--------------------------------------------------
+
+
+In contrast, consider money in a bank account. Assume an account is earning 5% interest and there is an initial deposit of $10,000. Figure 1.5 
+shows how the money would grow if no deposits or withdrawals are made and the bank applied interest monthly. Now similar to the car suspension 
+example, we can check the account balance at any time and get a value. However in this case, changes only occur once every month. Because the 
+in-between values are known to be held constant, we can represent the balance as shown in Figure 1.6.
+—--------------------------------------------------
+
+Por el contrario, considere el dinero en una cuenta bancaria. Suponga que una cuenta gana un 5% de interés y hay un depósito inicial de $10,000. 
+La figura 1.5 muestra cómo crecería el dinero si no se hicieran depósitos ni retiros y el banco aplicara intereses mensualmente. Ahora, similar 
+al ejemplo de la suspensión del automóvil, podemos verificar el saldo de la cuenta en cualquier momento y obtener un valor. Sin embargo, en este 
+caso, los cambios solo ocurren una vez al mes. Como se sabe que los valores intermedios se mantienen constantes, podemos representar el 
+equilibrio como se muestra en la figura 1.6.
+—--------------------------------------------------
+
+
+The formula for the amount of money in the account is
+—--------------------------------------------------
+La fórmula para la cantidad de dinero en la cuenta es
+—--------------------------------------------------
+
+
+
+An . A0
+ 
+1 . r
+12
+ n
+(1.1)
+
+where r is the annual interest rate, n is the number of months, A0 is the initial deposit, and An is the amount of money in the account in month 
+n. This variable n represents a discrete interval of time.
+—--------------------------------------------------
+
+donde r es la tasa de interés anual, n es el número de meses, A0 es el depósito inicial y An es la cantidad de dinero en la cuenta en el mes n. 
+Esta variable n representa un intervalo de tiempo discreto.
+—--------------------------------------------------
+
+
+The bank account is an example of a discrete-time system. In a discrete-time system, the values are only recorded at particular time instants. 
+The in-between values do not matter or do not change (as in the bank account), or we do not have access to them. Sampling is the process by 
+which a continuous-time system is converted to discrete time. In this situation, the sampling rate is very important because if the samples are 
+not taken often enough, important information in the signal can be lost.1 On the other hand, there is always an upper limit on the sampling rate 
+caused by hardware processing limitations, and faster sampling is not always the key to improving system performance.
+—--------------------------------------------------
+
+La cuenta bancaria es un ejemplo de un sistema de tiempo discreto. En un sistema de tiempo discreto, los valores solo se registran en instantes 
+de tiempo particulares. Los valores intermedios no importan o no cambian (como en la cuenta bancaria), o no tenemos acceso a ellos. El muestreo 
+es el proceso por el cual un sistema de tiempo continuo se convierte en tiempo discreto. En esta situación, la frecuencia de muestreo es muy 
+importante porque si las muestras no se toman con la frecuencia suficiente, se puede perder información importante en la señal.1 Por otro lado, 
+siempre hay un límite superior en la frecuencia de muestreo causado por las limitaciones de procesamiento del hardware. , y un muestreo más 
+rápido no siempre es la clave para mejorar el rendimiento del sistema.
+—--------------------------------------------------
+
+
+
+Real physical systems, such as the car suspension system, are mostly analog in nature and therefore continuous-time systems. So why study 
+discrete-time systems? The major reason is that many of these systems are computer controlled, and computers are discrete-time machines that run 
+on a clock. Figure 1.7 shows a typical physical system controlled by a computer. Typically, when a computer sends signals to actuators and 
+receives signals from sensors, some form of analog-to-digital and digital-to-analog conversion must take place.
+—--------------------------------------------------
+
+Los sistemas físicos reales, como el sistema de suspensión del automóvil, son en su mayoría de naturaleza analógica y, por lo tanto, sistemas de 
+tiempo continuo. Entonces, ¿por qué estudiar sistemas de tiempo discreto? La razón principal es que muchos de estos sistemas están controlados 
+por computadora, y las computadoras son máquinas de tiempo discreto que funcionan con un reloj. La Figura 1.7 muestra un sistema físico típico 
+controlado por una computadora. Por lo general, cuando una computadora envía señales a los actuadores y recibe señales de los sensores, debe 
+tener lugar alguna forma de conversión de analógico a digital y de digital a analógico.
+—--------------------------------------------------
+
+1.2.2 Linear versus Nonlinear
+
+A linear system can be characterized in several different, but related, ways.
+
+• Its dynamics can be represented by a system of linear differential equations (for continuous-time systems) or linear difference equations (for 
+discrete-time systems).
+• It has a transfer function.
+• It obeys the law of superposition.
+• A sinusoidal input produces a sinusoidal output of the same frequency.
+
+—--------------------------------------------------
+Un sistema lineal se puede caracterizar de varias maneras diferentes, pero relacionadas.
+
+• Su dinámica se puede representar mediante un sistema de ecuaciones diferenciales lineales (para sistemas de tiempo continuo) o ecuaciones 
+diferenciales lineales (para sistemas de tiempo discreto).
+• Tiene una función de transferencia.
+• Obedece la ley de la superposición.
+• Una entrada sinusoidal produce una salida sinusoidal de la misma frecuencia.
+
+
+—--------------------------------------------------
+
+
+One of the most common ways to test for a system’s linearity is by verifying if it follows the law of superposition. Superposition is usually 
+introduced to engineers in a circuit analysis course, but the concept applies to linear systems in general. (Resistive circuits are linear 
+systems after all.)
+—--------------------------------------------------
+Una de las formas más comunes de probar la linealidad de un sistema es verificando si sigue la ley de superposición. La superposición 
+generalmente se presenta a los ingenieros en un curso de análisis de circuitos, pero el concepto se aplica a los sistemas lineales en general. 
+(Después de todo, los circuitos resistivos son sistemas lineales).
+
+—--------------------------------------------------
+
+Superposition is composed of two parts, scaling and additivity.
+
+Scaling: If a system’s input x(t) results in an output y(t), then an input of ax(t) will result in the output ay(t) for any value a. This 
+characteristic is shown in Figure 1.8.
+—--------------------------------------------------
+
+Escalado: si la entrada x(t) de un sistema da como resultado una salida y(t), entonces una entrada de ax(t) dará como resultado la salida ay(t) 
+para cualquier valor a. Esta característica se muestra en la Figura 1.8.
+—--------------------------------------------------
+
+
+In other words, if you multiply the system’s input by some value, you end up multiplying the output by the same value. Note that this also means 
+zero input should result in zero output.
+—--------------------------------------------------
+En otras palabras, si multiplica la entrada del sistema por algún valor, termina multiplicando la salida por el mismo valor. Tenga en cuenta que 
+esto también significa que la entrada cero debe dar como resultado una salida cero.
+—--------------------------------------------------
+
+
+Additivity: If a system’s input x1(t) results in y1(t) and x2(t) results in y2(t), then if the input is x1(t) . x2(t), the output is y1(t) . 
+y2(t). A block diagram depicting this characteristic is shown in Figure 1.9.
+—--------------------------------------------------
+Aditividad: si la entrada de un sistema x1(t) da como resultado y1(t) y x2(t) da como resultado y2(t), entonces si la entrada es x1(t). x2(t), 
+la salida es y1(t) . y2(t). En la Figura 1.9 se muestra un diagrama de bloques que representa esta característica.
+
+—--------------------------------------------------
+
+In other words, in a linear system, it does not matter if you sum the signals before or after the system. The output is the same.
+—--------------------------------------------------
+En otras palabras, en un sistema lineal, no importa si sumas las señales antes o después del sistema. La salida es la misma.
+
+—--------------------------------------------------
+
+
+A nonlinear system is simply one that is not linear. However, there are several reasons why a system might be nonlinear, and different classes 
+of nonlinearities come about because of different physical reasons.
+
+—--------------------------------------------------
+Un sistema no lineal es simplemente uno que no es lineal. Sin embargo, hay varias razones por las que un sistema puede ser no lineal, y surgen 
+diferentes clases de no linealidades debido a diferentes razones físicas.
+—--------------------------------------------------
+
+Let’s consider an example of a simple nonlinear system. Suppose a system has input x and output y and they are related by
+—--------------------------------------------------
+Consideremos un ejemplo de un sistema no lineal simple. Supongamos que un sistema tiene una entrada x y una salida y y están relacionadas por
+—--------------------------------------------------
+
+
+y . mx . b (1.2)
+
+where m and b are nonzero constants. This is a linear equation! So how can it be nonlinear? Although it may be a linear equation, the system it 
+represents is nonlinear. We can see this if we look at the scaling property.
+—--------------------------------------------------
+donde m y b son constantes distintas de cero. ¡Esta es una ecuación lineal! Entonces, ¿cómo puede ser no lineal? Aunque puede ser una ecuación 
+lineal, el sistema que representa no es lineal. Podemos ver esto si observamos la propiedad de escala.
+—--------------------------------------------------
+
+According to the scaling property, let x0(t) be the input and y0(t) be the corresponding output, as in
+—--------------------------------------------------
+De acuerdo con la propiedad de escala, sea x0(t) la entrada y y0(t) la salida correspondiente, como en
+—--------------------------------------------------
+
+
+y0 . mx0 . b (1.3)
+
+Now let’s see what happens when we multiply the input by a and call the output y1.
+—--------------------------------------------------
+Ahora veamos qué sucede cuando multiplicamos la entrada por a y llamamos a la salida y1.
+—--------------------------------------------------
+
+y1 . m.ax0. . b (1.4)
+
+And when we multiply the output by a, we get
+
+ay0 . a.mx0 . b.
+. m.ax0. . ab
+(1.5)
+
+
+Because y1 does not equal a y0, the system is nonlinear! We can also see
+this if we put zero into the system, the output is b (not zero).
+
+Let’s also take a look at how the system does not obey the additivity property. (This is just an exercise. We have already shown the system is 
+nonlinear because it violates the scaling property.)
+—--------------------------------------------------
+
+También echemos un vistazo a cómo el sistema no obedece la propiedad de aditividad. (Esto es solo un ejercicio. Ya hemos demostrado que el 
+sistema no es lineal porque viola la propiedad de escala).
+—--------------------------------------------------
+
+
+Suppose the inputs x1(t) and x2(t) result in outputs y1(t) and y2(t),
+respectively. Then
+
+y1 . mx1 . b (1.6)
+y2 . mx2 . b (1.7)
+
+Putting the sum of x1 and x2 into the system, the output is
+
+ys . m.x1 . x2. . b (1.8)
+
+But
+
+y1 . y2 . mx1 . b . mx2 . b
+. m.x1 . x2. . 2b
+(1.9)
+
+Again we see that the system is nonlinear because ys s y1 . y2, and the
+additivity property is not followed.
+
+Here is another example that’s practical and not purely mathematical.
+Consider the amplifier circuit shown in Figure 1.10.
+
+A circuit like this is usually discussed in an introductory circuits or electronics course. It is an inverting amplifier, and the input-output 
+relationship is given by
+—-------------------------------------------------------
+Un circuito como este generalmente se analiza en un curso de introducción a circuitos o electrónica. Es un amplificador inversor, y la relación 
+entrada-salida está dada por
+—--------------------------------------------------------
+Vout .  R2
+R1
+Vin (1.10)
+
+If you double the input voltage, the output voltage is doubled, and the scaling property holds. Also, if you add two inputs, the result is
+—--------------------------------------------------------
+
+Si duplica el voltaje de entrada, el voltaje de salida se duplica y la propiedad de escala se mantiene. Además, si agrega dos entradas, el 
+resultado es
+—--------------------------------------------------------
+
+ R2
+R1
+.V1
+.V2. .
+ 
+  R2
+R1
+V1
+ 
+.
+ 
+  R2
+R1
+V2
+ 
+(1.11)
+
+and the additivity property holds. Clearly, this must be a linear system.
+
+Mathematically, yes, the system is linear. However, suppose your two input voltages are 10 and 15 V. Will the output be  25 V? No, of course 
+not! The circuit is only being supplied with  12 V, and the output cannot exceed this limit.
+—---------------------------------------------------
+Matemáticamente, sí, el sistema es lineal. Sin embargo, suponga que sus dos voltajes de entrada son 10 y 15 V. ¿Será la salida de  25 V? ¡No 
+claro que no! El circuito solo se alimenta con  12 V y la salida no puede exceder este límite.
+—---------------------------------------------------
+
+
+
+This op-amp circuit is an example of a system that is modeled linearly and behaves linearly within certain limits (for input voltages less than
+—---------------------------------------------------
+Este circuito de amplificador operacional es un ejemplo de un sistema que se modela linealmente y se comporta linealmente dentro de ciertos 
+límites (para voltajes de entrada menores que
+
+—---------------------------------------------------
+
+
+R1
+R2
+12 V in magnitude). However, when you exceed those limits, the output saturates, and the nonlinearity is seen as a distortion, as shown in 
+Figure 1.11. This limitation is one reason microphones clip and speakers distort sound.
+—---------------------------------------------------
+Sin embargo, cuando excede esos límites, la salida se satura y la no linealidad se ve como una distorsión, como se muestra en la Figura 1.11. 
+Esta limitación es una de las razones por las que los micrófonos se cortan y los altavoces distorsionan el sonido.
+—---------------------------------------------------
+
+
+There are many types of nonlinearities, and they can come about from different types of physical limitations such as thresholds, sticking, 
+hysteresis, or other imperfections. Nonlinear systems, and how to deal with them, are discussed in more detail in Chapter 4.
+—---------------------------------------------------
+Hay muchos tipos de no linealidades y pueden surgir de diferentes tipos de limitaciones físicas, como umbrales, atascos, histéresis u otras 
+imperfecciones. Los sistemas no lineales y cómo manejarlos se analizan con más detalle en el Capítulo 4.
+—---------------------------------------------------
+
+
+1.2.3 Time-Invariant versus Time-Varying
+
+A time-invariant (or autonomous) system is one whose behavior does not depend explicitly on time. In other words, given an input, if you run the 
+system now, an hour from now, or next Tuesday, the output will be the same. Mathematically, time invariance means that the “constants” in the 
+system are truly constant and do not vary with time.
+—---------------------------------------------------
+Un sistema invariante en el tiempo (o autónomo) es aquel cuyo comportamiento no depende explícitamente del tiempo. En otras palabras, dada una 
+entrada, si ejecuta el sistema ahora, dentro de una hora o el próximo martes, la salida será la misma. Matemáticamente, la invariancia en el 
+tiempo significa que las "constantes" en el sistema son verdaderamente constantes y no varían con el tiempo.
+—---------------------------------------------------
+
+
+As an example, consider a simple first-order model of a car:
+
+m€x.t. . F.t.   b_x.t. (1.12)
+
+
+where m is the mass of the car, x is the position, F is the force applied to the wheels by the engine and drivetrain, and b is the coefficient 
+of friction. We model this system as one that is time-invariant because we assume the mass and friction to be constant.
+—---------------------------------------------------
+donde m es la masa del automóvil, x es la posición, F es la fuerza aplicada a las ruedas por el motor y la transmisión, y b es el coeficiente de 
+fricción. Modelamos este sistema como uno que es invariante en el tiempo porque asumimos que la masa y la fricción son constantes.
+
+—---------------------------------------------------
+
+
+In reality, the car is a time-varying (or nonautonomous) system. As you drive, the car consumes fuel, and the mass decreases. However, this 
+change is small and occurs slowly, so mass is assumed constant. Many systems we take to be time invariant are not because of aging. In our 
+equations, we use parameters such as mass, friction, length, area, resistance, and many others as constants. But they do change as components 
+age. The time-invariance assumption is valid as long as the timeframe over which the parameters change is much longer than the run time for our 
+system. If it takes many years for a resistor value to change, but if we run the circuit for minutes or days, then the time-invariance 
+assumption works. In the bank account example, the interest rate may change, but the system can be considered time-invariant if the interest 
+rate is constant during the window of time we are investigating
+.—---------------------------------------------------
+
+En realidad, el automóvil es un sistema variable en el tiempo (o no autónomo). A medida que conduce, el automóvil consume combustible y la masa 
+disminuye. Sin embargo, este cambio es pequeño y ocurre lentamente, por lo que se supone que la masa es constante. Muchos sistemas que tomamos 
+como invariantes en el tiempo no lo son debido al envejecimiento. En nuestras ecuaciones, usamos parámetros como masa, fricción, longitud, área, 
+resistencia y muchos otros como constantes. Pero cambian a medida que los componentes envejecen. La suposición de invariancia en el tiempo es 
+válida siempre que el período de tiempo durante el cual cambian los parámetros sea mucho más largo que el tiempo de ejecución de nuestro 
+sistema. Si el valor de una resistencia tarda muchos años en cambiar, pero si ejecutamos el circuito durante minutos o días, entonces funciona 
+la suposición de invariancia en el tiempo. En el ejemplo de la cuenta bancaria, la tasa de interés puede cambiar, pero el sistema puede 
+considerarse invariable en el tiempo si la tasa de interés es constante durante la ventana de tiempo que estamos investigando.
+—---------------------------------------------------
+
+
+
+To check to see if a system is time-invariant, one only needs to delay the input and observe the output. Assuming that an input of x(t) produces 
+an output y(t), then the system is time invariant if the input x(t-s) gives an output of y(t-s) for any value of s. This relationship is shown 
+in Figure 1.12.
+
+—---------------------------------------------------
+
+Para verificar si un sistema es invariante en el tiempo, solo se necesita retrasar la entrada y observar la salida. Suponiendo que una entrada 
+de x(t) produce una salida y(t), entonces el sistema es invariante en el tiempo si la entrada x(t-s) da una salida de y(t-s) para cualquier 
+valor de s. Esta relación se muestra en la Figura 1.12.
+—---------------------------------------------------
+
+
+1.2.4 Memory versus Memoryless
+
+A system has memory if its output depends at all on past inputs. A system is
+memoryless if its output depends only on the current input. This concept
+can be seen by the following example.
+
+Consider a spring, with the relationship between position and force
+given by
+
+F . kx (1.13)
+
+where k is the spring constant. If you want to know the position of the
+spring given its force, you simply divide by k. On the other hand, suppose
+you have a system with friction where
+
+F . b_x (1.14)
+
+where b is the coefficient of friction, then given the force, you need to integrate
+to get position
+
+x.t. . 1
+b
+Zt
+ N
+F.s.ds (1.15)
+
+
+In this case, the force needs to be known for all time up the current time
+to determine the position.
+
+1.2.5 Causal versus Noncausal
+
+A causal system is one whose output depends only on the present and the
+past inputs. A noncausal system’s output depends on the future inputs. In a
+sense, a noncausal system is just the opposite of one that has memory.
+
+How can a real-world system be noncausal? It cannot because real
+systems cannot react to the future. But noncausal systems have important
+real-world applications. Consider a song stored in a sound file. Because the
+entire song is stored, we could process the sound by filtering in a way that
+has the current notes depend on notes later in the song. This is an example
+of postprocessing in which noncausal systems may be implemented.
+Another example of a noncausal system application is image processing.
+The pixels to the left of the current location can be considered as the “past”
+and pixels to the right as the “future.”
+
+1.2.6 Deterministic versus Stochastic
+
+A deterministic system is one in which parameters and inputs are known.
+Consider the earlier example of the simple first-order model of a car:
+
+m€x.t. . F.t.   b_x.t. (1.16)
+
+This system is deterministic if we know exactly values for the mass m,
+friction coefficient b, input force F, and initial conditions of x and _x and
+know that there are no other inputs, or disturbances, acting on the system.
+In this ideal case, we can figure out the system’s trajectory (the signals x(t)
+and _x.t.) simply by solving the differential equation (either analytically or
+numerically).
+
+Unfortunately, real-world systems usually have some uncertainty in
+them, and figuring out the system’s trajectory is not so simple. If any one of
+the parameters or inputs in the equations describing the system is not or
+cannot be known exactly, then the system is stochastic. Also if a system is
+affected by noise in any part of it, then the system is stochastic.
+
+Stochastic systems are an active field of study involving what are known
+as stochastic differential equations. In these sorts of systems, the parameters or
+inputs to the system are not known exactly, but it is assumed that their
+probabilistic properties are known. For example, it could be assumed that
+Gaussian white noise is entering the system through the sensor data.
+
+
+A more thorough discussion and exploration of stochastic systems are
+beyond the scope of this book. However for interested readers, good
+starting points are books by Astrom (1970) and Pugachev and Sinitsyn
+(2001).
+
+1.3 EXAMPLES OF DYNAMICAL SYSTEMS
+
+So far, several examples were introduced in the context of the different
+system types, such as the car suspension system, bank account, and op-amp
+circuit. One focus of this book is to provide real-world examples for each of
+the concepts discussed. The hope is to show how the theory can be applied
+to real systems. As a result, many more examples will be covered
+throughout the book to illustrate the concepts being discussed and then to
+apply them to real-world systems. Some of these examples will carry
+through multiple chapters, and many analytical methods will be applied to
+them. Examples of real-world systems presented include:
+
+• Driving a car, both lateral (steering) and longitudinal (speed) dynamics
+• Populations of humans and other living organisms
+• The human body, in particular the balance system
+• Aircraft engines
+• Electromechanical systems such as motor-driven devices
+• Translational and rotational mechanical systems such as the masse
+springedamper and pendulum
+
+1.4 A NOTE ON MATLAB AND SIMULINK
+
+A second focus of this book is to illustrate analysis methods using the
+common software tools of MATLAB and Simulink created by Mathworks,
+Inc. As with the examples, many concepts will involve MATLAB or
+Simulink (or both) to apply the methods. These programs were chosen
+because of their popularity in industry and academia.
+
+MATLAB (which stands for MATrix LABoratory) is a powerful program
+that allows engineers to perform computations based on matrices
+using a high-level programming language. With this program, one can
+perform simulations, apply analytical tools, and display plots of results.
+MATLAB has many toolboxes, which are available to expand the capabilities
+into many different areas. Some examples of toolboxes relevant to
+dynamical systems are the Control Systems Toolbox and System Identification
+Toolbox.
+
+Simulink is an add-on program to MATLAB that has a drag-and-drop
+interface that allows users to create and simulate systems visually using block
+diagrams. It has much of the same capabilities as MATLAB but with a
+graphical interface, and information can be passed back and forth between
+the two programs.
+
+For this book, there is the expectation that readers have some familiarity
+withMATLAB and Simulink. However, expertise is not necessary. Someone
+who has used these programs should be able to follow the examples and
+reproduce the results, along the way learning newelements of the software and
+newstrategies for using themas analytical tools. Expertise comeswith studying
+examples and practice with creating code. Readers who have not used
+MATLAB or Simulink should also be able to follow the examples and
+understand the results being obtained. If further help is needed, several good
+books are available as MATLAB and Simulink references, including those by
+Beucher andWeeks (2008), Moore (2014), and Tyagi (2012).
+
+The MATLAB and Simulink examples show one way to address the
+problem. As with any programming task, there are multiple ways to
+accomplish the desired result. The provided code may or may not be the
+“best” program in terms of execution time, memory use, or efficiency.
+These characteristics were secondary to clarity and ease of understanding
+because the main goal is conveying the ideas behind how MATLAB and
+Simulink are used as a tool to solve problems.
+
+REFERENCES
+
+1.	Astrom, K. (1970). Introduction to Stochastic Control Theory. Mineola, NY: Dover Publications. 
+2.	Beucher, O., & Weeks, M. (2008). Introduction to MATLAB and Simulink: A Project Approach (3rd ed.). Hingham, MA: Infinity Science Press.
+3.	Moore, H. (2014). MATLAB for Engineers (4th ed.). Boston: Prentice Hall.
+4.	Pugachev, V., & Sinitsyn, I. N. (2001). Stochastic Systems: Theory and Applications. River Edge, NJ: World Scientific Publishing.
+5.	Tyagi, A. (2012).MATLAB and SIMULINKfor Engineers.NewDelhi: OxfordUniversity Press.
+
+FURTHER READING
+
+1.	Coiffier, J. (2012). Fundamentals of Numerical Weather Prediction. Cambridge, UK: Cambridge University Press.
+2.	Fayyad, S. (2012). Constructing control system for active suspension system. Contemporary Engineering Sciences, 5(4), 189e200.
+3.	Guglielmino, E., Sireteanu, T., Stammers, C. W., Gheorghe, G., & Giuclea, M. (2008). Semi-active Suspension Control: Improved Vehicle 
+Ride and Road Friendliness. London: Springer-Verlag London. 
+4.	Jackson, L. (1990). Signals, Systems, and Transforms. Reading, MA: Addison-Wesley.
+
+
+
+
+
+
+
+

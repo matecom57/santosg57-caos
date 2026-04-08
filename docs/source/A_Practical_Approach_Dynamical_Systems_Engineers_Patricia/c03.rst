@@ -1,0 +1,1378 @@
+c03
+===
+
+A_Practical_Approach_Dynamical_Systems_Engineers_Patricia_C03
+
+p147
+
+CHAPTER 3
+Characteristics of Dynamical
+Systems
+3.1 OVERVIEW
+This chapter provides more detail about some general characteristics of
+dynamical systems, in particular their solutions, implications of equilibrium
+and stability, and the role of Lyapunov functions. These concepts apply to
+all types of dynamical systems, and we look at several different applications.
+In the next chapter, we focus on nonlinear systems and some characteristics
+peculiar to them.
+In Section 3.2, we investigate the existence and uniqueness of solutions
+and why engineers should worry about them. We take an in-depth view of
+conditions for solutions to exist, apply the existence theorems to real-world
+systems, and look at what the results mean. Then the next step is taken,
+and we apply solution methods to linear systems. Section 3.3 examines
+certain solutions that are important in the study of dynamical systems:
+equilibria (or points where the dynamical system is no longer dynamic). We
+also study nullclines as a way of finding equilibrium points and dividing up a
+state-space according to system behavior. The important topic of stability is
+discussed in Section 3.4, and various definitions are given and discussed in
+the context of real-world systems. Finally, in Section 3.5, we investigate
+Lyapunov functions as a way to determine stability.
+3.2 EXISTENCE AND UNIQUENESS OF SOLUTIONS:
+WHY IT MATTERS
+The existence of solutions is very important when studying dynamical
+systems, particularly control systems, because there is no point in trying to
+solve a problem if there is no solution. For engineers, this first step may be
+easy to overlook because the main emphasis is on finding the solution and
+not stopping to consider if one actually exists. In fact, engineers, being the
+problem solvers that they are, may actually change a system to force a
+solution. Although this can be an appropriate path, it is important to realize
+what is happening and what the implications of such maneuvering may be.
+
+
+In general, engineers focus on finding the solution to problems that
+mathematicians have previously proven are solvable. The differing points of
+view have been the topic of many jokes about engineers, mathematicians,
+and physicists. Here is one example from Mike Schuh’s (n.d.) collection of
+engineer-mathematician-physicist jokes.1
+An engineer, a mathematician, and a physicist are staying for the night in a
+hotel. Fortunately for this joke, a small fire breaks out in each room.
+The physicist awakes, sees the fire, makes some careful observations, and on the
+back of the hotel’s wine list does some quick calculations. Grabbing the fire
+extinguisher, he puts out the fire with one, short, well placed burst, and then
+crawls back into bed and goes back to sleep.
+The engineer awakes, sees the fire, makes some careful observations, and on the
+back of the hotel’s room service list (pizza menu) does some quick calculations.
+Grabbing the fire extinguisher (and adding a factor of safety of 5), he puts out the
+fire by hosing down the entire room several times over, and then crawls into his
+soggy bed and goes back to sleep.
+The mathematician awakes, sees the fire, makes some careful observations, and
+on a blackboard installed in the room, does some quick calculations. Jubilant, he
+exclaims “A solution exists!”, and crawls into his dry bed and goes back to sleep.
+One of the strengths of mathematics is in its emphasis on explicit and
+precise definitions. Inspired by this practice, we will start with a definition.
+3.2.1 What Is a Solution?
+Before discussing the existence of solutions, we should first define what
+exactly is meant by a “solution.” Let us address continuous-time and
+discrete-time systems separately.
+For a discrete-time system, assume it is modeled by
+x.n . k  . f .x.n . k   1 ; x.n . k   2 ;.; x.n ; n. (3.1)
+where x is a real-valued N-dimensional vector and the system has initial
+conditions
+x.n0  . x0
+x.n0 . 1  . x1
+«
+x.n0 . k   1  . xk 1
+(3.2)
+
+
+Note that this is a more general nonlinear and time-varying form than
+was given in Chapter 2, which focuses on linear systems. A solution to
+(3.1) is a sequence of numbers, starting with the given initial conditions
+(x0, x1,., xk 1), and continuing on with xk, xk.1, xk.2,.such that when
+these values are plugged into (3.1) the equality is satisfied.
+For a continuous-time system, assume it is modeled by
+_x
+.t. . f .t; x.t.. (3.3)
+where x(t) is a real-valued N-dimensional vector and the system has initial
+conditions
+x.t0. . x0 (3.4)
+As with the discrete-time case, here we are assuming a more general
+nonlinear and time-varying system than was given in Chapter 2. A
+solution to (3.3) is a function bx.t. such that bx_ .t. is defined and when
+plugged into (3.3) satisfies the equality. Often the solution is defined over
+an interval of time, such as [t0, t1], and that bx_ .t. . f .t; bx.t.. for all
+t ˛.t0; t1 . These solutions are also called trajectories or orbits. The phase
+plots shown in the previous chapter (such as in Figure 2.48) are examples
+of system trajectories.
+The uniqueness of the solution means that the given solution is the
+only one that will work. There is no other solution that also satisfies the
+system equations. This condition guarantees that the system will move
+forward in time along the same path every time given the same starting
+point (initial condition).
+3.2.2 Existence and Uniqueness Theorem
+In many books on dynamical systems, a great deal of space is spent on
+theorems proving the existence and uniqueness of solutions to the equations
+that describe the systems.2 The main result that is given is a theorem
+that provides sufficient conditions for the existence and uniqueness of
+the solution. Below is an example of such a theorem for continuous-time
+systems.3
+Global Existence and Uniqueness: Suppose f(t, x(t)) is piecewise
+continuous in t and satisfies the Lipschitz condition
+k f .t; x.   f .t; y.k   Lkx   yk (3.5)
+
+
+for all x; y˛<N and for all t ˛.t0; t1  and also satisfies
+k f .t; x0.k   h (3.6)
+for all t ˛.t0; t1 . Then the state equation _x.t. . f .t; x.t.. with x(t0) . x0 has a
+unique solution over [t0, t1].
+Let us look at this theorem in detail and understand what it is saying.
+The first assumption is that f is piecewise continuous in t. Formally, from
+the definition of continuity, this means that for every ε > 0, there exists a
+d > 0 such that if
+  
+t  bt
+  
+< d then
+  
+f .t; x.t..   f .bt
+; x.bt
+..
+  
+< ε. Continuity
+means that the function f does not have jumps as it evolves in time.
+However, the piecewise modifier means that it can have jumps but only a
+finite number of them in any time interval. Figure 3.1 shows an example of
+a piecewise continuous function in time. The function f(t) is piecewise
+continuous in the interval [t0, t1] with two discontinuities. To illustrate the
+difference between continuous and differentiable, there is a point between
+the two discontinuities where f comes to a sharp point and thus is not
+differentiable, but it is continuous.
+Notice that the continuous condition for f is with respect to t, not x.
+Instead the requirement on the x argument is the Lipschitz condition,
+which is stronger than continuity. In fact, continuity in x ensures that a
+solution exists,4 but uniqueness requires the Lipschitz condition. This condition
+is stated in (3.5).
+
+
+First, a note about the notation k,k (which also appeared in the definition
+of continuity). This is called the norm of a vector. It could be the
+Euclidean distance (as is often used in real-world systems), but it could also
+be a more general p-norm or an even more general form. A norm simply
+needs to satisfy three conditions:
+1. kxk   0 for all x˛<N and kxk . 0 if and only if x . 0.
+2. kx . yk   kxk . kyk for all x; y˛<N.
+3. kaxk . jaj kxk for all x˛<N and a˛<.
+A p-norm is defined by
+kxk
+p
+. .xp
+1
+. xp
+2
+./. xp
+N
+.1=p (3.7)
+and the Euclidean distance uses p . 2.
+The Lipschitz condition in (3.5) lies somewhere between continuity and
+differentiability. That is, every function that is differentiable with continuous
+first derivative is a Lipschitz function, and every Lipschitz function is
+continuous.5 This condition is illustrated for N . 2 in Figures 3.2 and 3.3.
+Two points x and y are chosen. From each of those points, the function f
+defines a vector field that indicates magnitude and direction of the
+instantaneous velocity shown by the arrows in Figure 3.2. In Figure 3.3, the
+distance between the points is shown as kx   yk, and the distance between
+the vector fields is shown as k f .x.   f .y.k. In this case, the norm is taken
+to be the Euclidean distance and is determined using vector subtraction.
+It should be noted that in this example, the system is time-invariant because
+
+
+f does not depend explicitly on t. For time-varying systems (as described in
+the theorem earlier), the relationship needs to be true for every instant of
+time in the interval [t0, t1].
+The Lipschitz condition states that the distance between the velocities at
+two points is not too much bigger than the distance between the points
+themselves. The “not too much bigger” phrase is characterized by L, which
+is a constant real number.
+The last condition of the theorem (3.6) states that the norm of the
+vector field emanating from the initial condition isn’t too big. Here the
+“isn’t too big” phrase is characterized by h. In other words, the system isn’t
+moving too quickly from its initial state.
+3.2.3 Application Examples
+Let us explore two examples to see how this theorem works and why it’s
+important.
+Example 1: First consider the damped pendulum as discussed in Chapter 2
+but with external torque input T. This input makes the system time-varying
+because in general, T . T(t). The equation for this system is
+T   mgl sin q   bq_ . ml2q€ (3.8)
+Using
+x1 . q
+x2 . _q
+(3.9)
+
+
+the state equations become
+_x
+1 . x2
+_x
+2 .  g
+l
+sin x1   b
+ml2 x2 . 1
+ml2 T
+(3.10)
+Putting these state equations in the form of (3.3) gives
+f .x1; x2; T. .
+ 
+f1.x1; x2; T.
+f2.x1; x2; T.
+ 
+(3.11)
+where
+f1.x1; x2; T. . x2
+f2.x1; x2; T. .  g
+l
+sin x1   b
+ml2 x2 . 1
+ml2 T
+(3.12)
+First, is this system piecewise continuous in t? It depends. Although t
+does not appear explicitly in the system equations, it does appear implicitly
+through the torque input T. Thus, if T is piecewise continuous, then so is
+our system. This result comes about because f2 is a continuous function of
+T, and continuous functions of continuous functions are also continuous.
+Next, is f a Lipschitz function? One approach is to pick an arbitrary pair of
+points in the plane, x . (x1, x2) and y . (y1, y2) and then find a constant L
+(which is independent of x and y) so that (3.5) is satisfied. Instead of this
+approach, we will rather use the fact that continuously differentiable functions
+satisfy the Lipschitz condition. This is stated formally as a theorem.3
+Theorem: Let f(t, x) be continuous on .a; b    <N. If vf
+vx exists and is
+continuous on .a; b    <N, then f is globally Lipschitz in x on .a; b    <N if and
+only if vf
+vx is uniformly bounded on .a; b    <N.
+To apply this theorem, we first need vf
+vx, the Jacobian of f, which is
+given by
+vf
+vx
+.
+2
+66664
+vf1
+vx1
+vf1
+vx2
+vf2
+vx1
+vf2
+vx2
+3
+77775
+.
+2
+64
+0 1
+ g
+l
+cos x1   b
+ml2
+3
+75
+(3.13)
+
+
+The Jacobian certainly exists and is continuous. Next is to determine if
+vf
+vx is uniformly bounded on .a; b   <2. This condition also holds because
+none of the entries in the matrix grows without bound (the cosine gives
+values between -1 and 1 and all the other entries in the matrix are constant).
+Thus, we can conclude that the system equations for the damped pendulum
+with torque input are globally Lipschitz. The “globally” modifier means
+that the condition holds on all of plane <2, not just a subset of it.
+Finally, does (3.6) hold? To determine this condition, consider any
+initial condition x0 . (x10, x20).
+Then for t ˛.t0; t1 ,
+f .t; x0. .
+2
+64
+x20
+ g
+l
+sin x10   b
+ml2 x20 . 1
+ml2 T.t.
+3
+75
+(3.14)
+The dependence of torque T on time is shown explicitly. Then using
+the Euclidean distance norm
+k f .t; x0.k .
+ffiffiffiffiffiffiffiffiffiffiffiffiffiffiffiffiffiffiffiffiffiffiffiffiffiffiffiffiffiffiffiffiffiffiffiffiffiffiffiffiffiffiffiffiffiffiffiffiffiffiffiffiffiffiffiffiffiffiffiffiffiffiffiffiffiffiffiffiffiffiffiffiffiffiffiffiffiffiffiffi
+x2
+20
+.
+ 
+  g
+l
+sin x10   b
+ml2 x20 . 1
+ml2 T.t.
+ 
+2
+s
+(3.15)
+If T is bounded on the interval t ˛.t0; t1 , then (3.6) is satisfied.
+Because all the conditions of the existence and uniqueness theorem are
+satisfied with certain restrictions on T, we can conclude that the damped
+pendulum equations have a unique solution.
+Example 2: Next, let us consider a system with a dead zone
+nonlinearity.
+_x
+. ax . bf.x. (3.16)
+where the nonlinearity is defined by
+f.x. .
+8><
+>: x
+.
+d; for x
+<
+ 
+d
+0; for  d   x   d
+x   d; for x > d
+(3.17)
+Dead zone is a common nonlinearity that often shows up in physical
+systems when there is some type of “stickiness.” This type of nonlinearity
+will appear again in the next chapter when discussing nonlinearities. A plot
+of f(x) versus x with a > 0 and b > 0 is shown in Figure 3.4.
+
+
+Applying the existence and uniqueness theorem, we first note that f(x)
+is continuous in t. Continuity can be established by the fact that f is
+a continuous function of x (as seen in Figure 3.4) and x is a continuous
+(actually differentiable because _x exists for all t) function of t.
+Next is to check the Lipschitz condition, which is done using a geometric
+interpretation. In one dimension, the norm k,k can be interpreted as
+the absolute value. Then (3.5) becomes
+j f .x.   f .y.j   Ljx   yj (3.18)
+or
+j f .x.   f .y.j
+jx   yj
+  L (3.19)
+The left side of (3.19) is the slope of the line connecting two points on the
+function f. The Lipschitz condition then reduces to having a bound on the
+slope of the line connecting any two points. Choosing the two points x and y
+in the same region (i.e. x, y <  d, x; y˛. d; d , or x, y > d), the slope of the
+line connecting f(x) and f(y) is the slope of that segment (a or a . b). If the
+points are in different regions, the slope connecting f(x) and f(y) does not
+exceed a . b as shown in Figure 3.5. No matter where x and y are located,
+the slope of the line will never be steeper than the steepest segment of f.
+Checking the final condition gives
+j f .t; x0.j . jax0 . bf.x0.j
+  h
+(3.20)
+
+
+This condition holds for each x0 and all t (because f does not depend
+explicitly on t). All the conditions of the existence and uniqueness theorem
+are satisfied, so therefore a unique solution to (3.16) exists.
+To summarize: why are we interested in whether a solution exists and
+whether it is unique? So we are assured that the mathematical model of the
+system can (1) predict where the system will go next and (2) make
+the prediction without ambiguity! However, for engineers, this is only the
+starting point. Equally as important is knowing what the solution is. In
+general, finding the solution for the system is difficult. But in the case of
+linear systems, there is a straightforward procedure for finding them, which
+we explore next.
+
+3.2.4 Solutions of Linear Systems
+
+To find the solution to an autonomous linear system of the form
+_x
+. Ax (3.21)
+
+this system is treated much like a first-order scalar differential equation
+_x
+. ax for which the solution is x(t) . x0eat where x0 is the initial condition
+for the system. Likewise, the solution to (3.21) is of the form
+x.t. . eAtx0 (3.22)
+except now x and x0 are vectors and the exponential is a matrix.
+
+
+We consider two cases: A is diagonalizable and A is not diagonalizable.
+One can check if A is diagonalizable by its eigenvectors. If the set of eigenvectors
+is linearly independent, then A is diagonalizable.6
+In the case that A is diagonalizable, the exponential can be
+expanded as
+eAt . el1tG1 . el2tG2 ./. elNtGN (3.23)
+where li denote the eigenvalues and Gi is the ith spectral projector given by
+Gi .
+PN
+j.1
+jsi
+.A   ljI.
+PN
+j.1
+jsi
+.li   lj. (3.24)
+In the case that A is not diagonalizable, the exponential is
+eAt .
+Xs
+i.1
+Xki 1
+j.0
+t jelit
+j!
+.A   liI.jGi (3.25)
+where s is the number of distinct eigenvalues, Gi is a spectral projector (not
+the same as (3.24) as shown in the examples below), and ki is the index of li,
+defined as
+index.l. . smallest value of k such that rank.A   lI.k . rank.A   lI.k.1
+Let us illustrate this solutionmethodwith two examples, one for each case.
+
+Example 1: Consider the second-order system given by
+
+€x .  4x (3.26)
+
+From studies of differential equations, we know that the solution is
+sinusoidal, but let’s look at it from a systems perspective.
+Letting x1 . x and x2 . _x, the system can be written as
+ 
+_x
+1
+_x
+2
+ 
+.
+ 
+0 1
+ 4 0
+  
+x1
+x2
+ 
+(3.27)
+Assume the initial conditions are x1(0) . x10 and x2(0) . x20. The
+eigenvalues of this system are l1 . 2j and l2. 2j and the eigenvectors are  
+1ffiffi
+5
+p 2ffiffi
+5
+p j
+ 
+T
+and
+ 
+1ffiffi
+5
+p   2ffiffi
+5
+p j
+ 
+T
+. Because these eigenvectors are linearly
+6 More
+
+
+independent, the system is diagonalizable. Then by (3.22)e(3.24), and
+Euler’s formula, the solution to (3.27) found as
+G1 .
+"
+0 1
+ 4 0
+ 
+ 
+ 
+ 2j 0
+0  2j
+ 
+2j   . 2j.
+.
+2
+6664
+1
+2
+ 1
+4
+j
+j
+1
+2
+3
+775
+(3.28)
+G2 .
+"
+0 1
+ 4 0
+ 
+ 
+ 
+2j 0
+0 2j
+ 
+ 2j   2j
+.
+2
+6664
+1
+2
+1
+4
+j
+ j
+1
+2
+3
+775
+(3.29)
+2
+664
+x1.t.
+x2.t.
+3
+775
+. e2jt
+2
+664
+1
+2
+ 1
+4
+j
+j
+1
+2
+3
+775
+2
+664
+x10
+x20
+3
+775
+. e 2jt
+2
+664
+1
+2
+1
+4
+j
+ j
+1
+2
+3
+775
+2
+664
+x10
+x20
+3
+775
+.
+2
+66666666664
+.cos.2t. . j sin.2t..
+ 
+1
+2
+x10   1
+4
+jx20
+ 
+. .cos.2t.   j sin.2t..
+ 
+1
+2
+x10 . 1
+4
+jx20
+ 
+.cos.2t. . j sin.2t..
+ 
+jx10 . 1
+2
+x20
+ 
+. .cos.2t.   j sin.2t..
+ 
+  jx10 . 1
+2
+x20
+ 
+3
+77777777775
+.
+2
+64
+x10 cos.2t. . 1
+2
+x20 sin.2t.
+ 2x10 sin.2t. . x20 cos.2t.
+3
+75
+(3.30)
+
+
+Example 2: Now consider the system given by
+2
+666664
+_x
+1
+_x
+2
+_x
+3
+3
+777775
+.
+2
+666664
+ 1  1
+2
+ 1
+ 1  1  1
+1
+1
+2
+1
+3
+777775
+2
+666664
+x1
+x2
+x3
+3
+777775
+(3.31)
+
+The eigenvalues of this system are l1 .  1 and l2 . 0 (l2 has
+multiplicity 2). and the eigenvectors are
+ 
+1ffiffi
+6
+p 2ffiffi
+6
+p   1ffiffi
+6
+p
+ 
+T
+and
+ 
+1ffiffi
+2
+p 0   1ffiffi
+2
+p
+ 
+T
+. Because there are only two unique eigenvectors
+(instead of three), the system is not diagonalizable. Therefore, to get the
+solution, (3.25) is needed.
+As a preliminary step to applying (3.25), we must determine s, ki, and Gi.
+Because there are two distinct eigenvalues, s . 2.
+For ki, we determine the index of each eigenvalue by examining the
+rank of various powers of (A   liI).
+For i . 1,
+rank
+ 
+.A   . 1.I.1
+ 
+. 2
+rank
+ 
+.A   . 1.I.2
+ 
+. 2
+and therefore k1 . 1.
+For i . 2,
+rank
+ 
+.A   .0.I.1
+ 
+. 2
+rank
+ 
+.A   .0.I.2
+ 
+. 1
+rank
+ 
+.A   .0.I.3
+ 
+. 1
+and therefore k2 . 2.
+
+Each matrix Gi must have the property that it is the projector onto the
+nullspace of .A   liI.ki along the range of .A   liI.ki. To find the G1 and
+G2, a procedure is applied for building a projector.7 First define
+
+
+L1 . .A   . 1.I.1
+.
+2
+6666664
+0  1
+2
+ 1
+ 1 0  1
+1
+1
+2
+2
+3
+7777775
+(3.32)
+Then we determine matrices X1 and Y1, where the columns of X1 are a
+basis of the nullspace ofL1 and the columns of Y1 are a basis of the range ofL1.
+To find X1, convert L1 to reduced row echelon form
+U1 .
+2
+64
+1 0 1
+0 1 2
+0 0 0
+3
+75
+(3.33)
+and solve for U1v . 0, which gives
+v1 . v3 . 0
+v2 . 2v3 . 0
+(3.34)
+Choosing v3 as a free variable, then
+2
+64
+v1
+v2
+v3
+3
+75
+.
+2
+64
+ 1
+ 2
+1
+3
+75
+v3 (3.35)
+and
+X1 .
+2
+64
+ 1
+ 2
+1
+3
+75
+(3.36)
+To find Y1, we need the basic columns of L1, that is, those that
+correspond to columns of U1 containing pivots as in Figure 3.6.
+Then
+Y1 .
+2
+666664
+0  1
+2
+ 1 0
+1
+1
+2
+3
+777775
+(3.37)
+
+
+1
+0 1 2
+0
+0
+0 0
+0 1
+U1 =
+12
+−
+12
+−1
+1 2
+0 −1
+−1
+Λ1
+Figure 3.6 The basic columns of L1 correspond to columns of U1 containing pivots.
+and G1 can be found by
+G1 . .X1j 0   .X1j Y1   1
+.
+2
+66664
+ 1 0 0
+ 2 0 0
+1 0 0
+3
+77775
+2
+66666664
+ 1 0  1
+2
+ 2  1 0
+1 1
+1
+2
+3
+77777775
+ 1
+.
+2
+6666666664
+1
+2
+1
+2
+1
+2
+1 1 1
+ 1
+2
+ 1
+2
+ 1
+2
+3
+7777777775
+(3.38)
+Starting with L2 defined as
+L2 . .A   .0.I.2
+.
+2
+66666664
+1
+2
+1
+2
+1
+2
+1 1 1
+ 1
+2
+ 1
+2
+ 1
+2
+3
+77777775
+(3.39)
+
+
+and following the same procedure yields G2 as
+G2 . .X2j 0   .X2jY2   1
+.
+2
+6666664
+ 1  1 0
+1 0 0
+0 1 0
+3
+7777775
+2
+6666664
+ 1  1
+1
+2
+1 0 1
+0 1  1
+2
+3
+7777775
+ 1
+.
+2
+66666664
+1
+2
+ 1
+2
+ 1
+2
+ 1 0  1
+1
+2
+1
+2
+3
+2
+3
+77777775
+(3.40)
+Now we can proceed with the solution as given in (3.25). Using s . 2,
+l1 .  1, l2 . 0, k1 . 1, k2 . 2, and initial conditions x10, x20, x30, and
+plugging in gives
+2
+66664
+x1
+x2
+x3
+3
+77775
+.
+X2
+i.1
+Xki 1
+j.0
+tjeli t
+j!
+.A   liI.jGi
+2
+66664
+x10
+x20
+x30
+3
+77775
+. t0e t
+0!
+.A   . 1.I.0G1
+2
+66664
+x10
+x20
+x30
+3
+77775
+. t0e0
+0!
+.A   .0.I.0G2
+2
+66664
+x10
+x20
+x30
+3
+77775
+t1e0
+1!
+.A   .0.I.1G2
+2
+66664
+x10
+x20
+x30
+3
+77775
+.
+2
+66666666664
+e t
+2
+666666664
+1
+2
+1
+2
+1
+2
+1 1 1
+ 1
+2
+ 1
+2
+ 1
+2
+3
+777777775
+.
+2
+666666664 1
+2
+ 1
+2
+ 1
+2
+ 1 0  1
+1
+2
+1
+2
+3
+2
+3
+777777775
+. t
+2
+666666664
+ 1
+2
+0  1
+2
+0 0 0
+1
+2
+0
+1
+2
+3
+777777775
+3
+77777777775
+2
+666666664
+x10
+x20
+x30
+3
+777777775
+(3.41)
+
+
+Simplifying gives the final solution to (3.31) as
+2
+666664
+x1
+x2
+x3
+3
+777775
+.
+2
+666664
+1
+2
+e t . 1
+2
+  1
+2
+t
+1
+2
+e t   1
+2
+1
+2
+e t   1
+2
+  1
+2
+t
+et   1 e t e t   1
+ 1
+2
+e t . 1
+2
+. 1
+2
+t  1
+2
+e t . 1
+2
+ 1
+2
+e t . 3
+2
+. 1
+2
+t
+3
+777775
+2
+666664
+x10
+x20
+x30
+3
+777775
+(3.42)
+This section gave a method and examples of how to find solutions for
+linear systems, a topic covered rarely in books on dynamical systems. The
+method is straightforward enough and can be automated using a program
+such as MATLAB for larger linear systems to take care of the matrix
+multiplication. As can be expected, finding solutions to nonlinear systems is
+more difficult. There are many different types of nonlinear systems (indeed,
+any system that is not linear is nonlinear), and a general procedure for
+finding an analytical solution is not available. Usually numerical methods
+are used when working with nonlinear systems.
+We now turn our focus to particular types of solutions in dynamical
+systems.
+3.3 EQUILIBRIUM AND NULLCLINES
+An equilibrium point is a solution to a dynamical systemda special one. An
+equilibrium point (also known as a critical point, stationary point, or
+fixed point) is a state of the system where it will stay forever. Mathematically,
+the equilibrium point is a state of the system x* that satisfies for
+discrete-time systems
+x*.n . 1  . x*.n  (3.43)
+and for continuous-time systems
+_x
+* . f .t; x*. . 0 (3.44)
+In other words, when a system gets to its equilibrium point, it doesn’t
+move away from it.
+Associated with equilibrium points are curves in the state-space called
+nullclines. For anN-dimensional continuous systemwith states x1, x2,., xN,
+the xi-nullcline is the set of points that satisfies _xi . 0. The equilibrium points
+for the system are those points that lie at the intersection of all the nullclines.
+
+
+Let us explore the concept of equilibrium points in the context of two
+examples: population dynamics and the double pendulum.
+3.3.1 Population Dynamics
+Consider the example of a population consisting of predators and their
+prey. Denote the predator population by x2 and the prey population by x1.
+As a simplified model, the following assumptions are made.
+i. If there are no predators, the prey population increases at a rate proportional
+to its size.
+ii. If there are predators, the prey population decreases at a rate proportional
+to the number of encounters between them.
+iii. If there are no prey, the predator population decreases at a rate proportional
+to its size.
+iv. If there are prey, the predator population increases at a rate proportional
+to the number of encounters between them.
+v. The predators only have their prey as a food source.
+vi. Effects of overcrowding are ignored.
+The equations corresponding to assumptions i to iv are
+i. _x1 . ax1
+ii. _x1 .  bx1x2
+iii. _x2 .  cx2
+iv. _x2 . dx1x2
+The constants a, b, c, and d are taken to be positive and depend on how the
+populations interact. Combining the four equations gives the dynamic
+equations for the system (known as the Volterra-Lotka system of equations).
+_x
+1 . .a   bx2.x1 (3.45)
+_x
+2 . . c . dx1.x2 (3.46)
+The x1-nullclines and x2-nullclines each have two lines associated with
+them. From (3.45), the x1-nullclines are
+x1 . 0
+x2 . a
+b
+(3.47)
+From (3.46), the x2-nullclines are
+x1 . c
+d
+x2 . 0
+(3.48)
+
+
+The equilibrium points can be found by setting (3.45) and (3.46) to zero
+and solving for x1 and x2 simultaneously. Thus, the two equilibriumpoints are
+x1* . 0 and x2* . 0
+x1* . c
+d
+and x2* . a
+b
+(3.49)
+Alternatively, the equilibrium points can be found at the intersection of
+the nullclines as shown in Figure 3.6. In the figure, the x1-nullclines are
+shown as the solid lines corresponding to (3.47), and the x2-nullclines are
+shown as the dashed lines corresponding to (3.48). The nullclines intersect
+at two points, (0, 0) and
+ 
+cd
+;ab
+ 
+, and these points are the two equilibrium
+points of the system because both _x1 and _x2 are zero.
+If the vector fields are plotted on the phase plot in Figure 3.7, there are
+four distinct behaviors that appear in the four sections created by the
+nullclines. This behavior is demonstrated in the next MATLAB example.
+3.3.1.1 MATLAB Example: PredatorePrey System Phase Plot
+Let’s now look at the phase plot of the predatoreprey system in MATLAB.
+The code to obtain the plot is very similar to that used in Chapter 2.
+% predator_prey_simulation.m
+% Close all figures and clear all variables
+close all
+clear all
+% Define the model parameters
+Characteristics of Dynamical Systems 165
+
+
+a . 4000;
+b . 20;
+c . 600;
+d . 2;
+% Define simulation constants
+x1max . 500;
+x2max . 500;
+dx . 40;
+% Plot the equilibrium points
+hold on
+plot(0,0,'ko',c/d,a/b,'ko')
+% Plot the nullclines
+plot([0,0],[0,x2max],'k','linewidth',2)
+plot([0,x1max],[a/b,a/b],'k','linewidth',2)
+plot([0,x1max],[0,0],'k--','linewidth',2)
+plot([c/d,c/d],[0,x2max],'k--','linewidth',2)
+x1 . [0:dx:x1max];
+x2 . [0:dx:x2max];
+[X1,X2] . meshgrid(x1,x2);
+u . (a b*X2).*X1;
+v . ( c.d*X1).*X2;
+mag . sqrt(u.^2.v.^2);
+% Create the phase plot
+quiver(X1,X2,u,v,2)
+%quiver(X1,X2,u./mag,v./mag,0.5)
+axis([ dx,x1max.dx, dx,x2max.dx])
+xlabel('Prey, x_1')
+ylabel('Predators, x_2')
+After the constants for the simulation are defined, the code first plots the
+equilibrium points at (0, 0) and
+ 
+cd
+;ab
+ 
+as black circles. Then the nullclines are
+generated by plotting the two endpoints of the line segment and connecting
+them with either a solid or dashed black line.
+Next a grid is created to locate the positions of each vector field for
+display on the plot. In this case, the grid is a 500   500 area (x1max by
+x2max) with points located at intervals of 40 (dx). These values were chosen
+
+because they gave the best display. The meshgrid command creates two
+13   13 matrices as follows.
+X1 .
+2
+666664
+0 40 / 480
+0 40 / 480
+« « 1 «
+0 40 / 480
+3
+777775
+X2 .
+2
+6664
+0 0 / 0
+40 40 / 40
+« « 1 «
+480 480 / 480
+3
+7775
+These two matrices together give the (x1, x2) coordinates of each point on
+the desired grid.
+The three lines that follow,
+u . (a b*X2).*X1;
+v . ( c.d*X1).*X2;
+mag . sqrt(u.^2.v.^2);
+define the vector field with _x1 denoted by u and _x2 denoted by v. Having
+created X1 and X2 with the meshgrid command, the calculations for all
+vector fields on the grid can be accomplished in two lines of code. The last
+line calculates the magnitude of each vector field and stores it in the variable
+mag so that the vectors of unit length may be plotted.
+Last, the phase plot is generated as before using the quiver command.
+Two versions are created. The first, shown in Figure 3.8, is the phase plot
+with the vector field lengths drawn to scale. The other, shown in
+Figure 3.9, is the phase plot with each vector field scaled to the same length
+(done by dividing each vector component by mag).
+The uniform-length vector fields shown in Figure 3.9 allow us to
+examine the behavior of the plot in each of the sections created by the
+nullclines. But first, note the behavior of the vector fields on the nullclines.
+The x1-nullcline is plotted as a solid line (as in Figure 3.7). By definition,
+_x
+1 . 0 on the x1-nullcline, so the vectors coming out of points on the solid
+lines are vertical. Similarly, on the x2-nullcline plotted as a dashed line, the
+_x
+2 component of each vector field located on it is zero. Thus, the vectors
+coming out of points on the dashed lines are horizontal.
+The points on the nullclines are the only points in the phase space
+where the vector fields are vertical or horizontal. Everywhere else, both
+
+
+x
+1 and _x2 must be nonzero. Therefore they can be identified as pointing
+northeast, northwest, southeast, or southwest. Using the regions illustrated
+in Figure 3.10, the behavior of the vector fields is summarized in Table 3.1.
+Note that because the system is dealing with populations, only positive
+x1 and x2 are considered. Also in these regions, the exact angle of the vector
+field isn’t specified; only general direction is.
+3.3.2 Double Pendulum
+A double pendulum is shown in Figure 3.11. Mass m1 is connected to a
+fixed point by a massless rod of length l1. Mass m2 is connected to m1
+through a massless rod of length l2. Intuitively, we know that the double
+pendulum has four configurations in which the segments will remain stationary
+if placed there carefully and not disturbed. These four configurations
+are shown in Figure 3.12 and correspond to
+a. q1 . 0, q2 . 0
+b. q1 . 0, q2 . p
+c. q1 . p, q2 . p
+d. q1 . p, q2 . 0
+
+
+Although these geometric positions correspond to equilibrium points of
+the double pendulum, there are, in fact, infinitely many equilibrium points.
+The reason for this is the circular nature of the pendulum, and adding
+multiples of 2p gives a different state with the same physical position.
+Although we have a physical understanding of equilibrium points for
+the double pendulum, let’s explore the mathematics.
+To derive the dynamical equations for this system, the Lagrangian
+technique can be used.8 The equations are
+.m1 . m2.l1 € q1 . m2l2q€2 cos.q1   q2. . m2l2q_
+2
+2 sin.q1   q2.
+. g.m1 . m2.sin q1 . 0
+(3.50)
+l2 € q2 . l1 € q1 cos.q1   q2.   l1 q_
+2
+1 sin.q1   q2. . g sin q2 . 0 (3.51)
+To determine f for this system, we first define the states to be
+x1 . q1
+x2 . q_1
+x3 . q2
+x4 . q_4
+(3.52)
+
+
+and then put the system equations into the form
+_x
+1 . f1.x1; x2; x3; x4.
+_x
+2 . f2.x1; x2; x3; x4.
+_x
+3 . f3.x1; x2; x3; x4.
+_x
+4 . f4.x1; x2; x3; x4.
+(3.53)
+Notice that the systemis time-invariant, so f will not depend explicitly on t.
+Based on the definition of the states, f1 and f3 are simply
+f1 . x2 (3.54)
+f3 . x4 (3.55)
+To obtain f2, solve (3.51) for _x4 and plug into (3.50). This gives
+f2 .
+ m2
+ 
+l1x22
+. l2x24
+ 
+sin.x1   x3.   g.m1 . m2.sin x1 . m2g sin x3
+l1.m1 . m2   m2 cos.x1   x3..
+(3.56)
+Similarly, to obtain f4, solve (3.50) for _x2 and plug into (3.51) to get
+f4 .
+
+m2l2
+m1.m2
+x24
+sin.x1   x3. . g sin x1
+ 
+cos.x1   x3. . l1x22
+sin.x1   x3.   g sin x3
+l2
+
+1   m2
+m1.m2
+cos2.x1   x3.
+ 
+(3.57)
+To determine the equilibrium points of the system, we need to find
+.x1*; x2*; x3*; x4*. to satisfy
+f1 . f2 . f3 . f4 . 0 (3.58)
+For f1 and f3, it is quite straightforward with
+x2* . 0
+x4* . 0
+(3.59)
+meaning neither of the pendulum arms can be moving.
+For f2 and f4, substituting (3.59) yields
+f2 . m2 g sin x3*   g.m1 . m2.sin x1*
+l1.m1 . m2   m2 cos.x1*   x3*.. (3.60)
+f4 . g sin x1* cos.x1*   x3*.   g sin x3*
+l2
+
+1   m2
+m1.m2
+cos2.x1*   x3*.
+  (3.61)
+172 A Practical Approach to Dynamical Systems for Engineers
+
+
+
+
+
+

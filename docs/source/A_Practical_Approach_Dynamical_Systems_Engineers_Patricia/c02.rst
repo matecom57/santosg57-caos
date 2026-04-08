@@ -1,0 +1,1743 @@
+c02
+===
+
+A_Practical_Approach_Dynamical_Systems_Engineers_Patricia_C02
+
+pag17
+
+CHAPTER 2 System Modeling 
+
+2.1 INTRODUCTION 
+
+What is a system model? At the most basic level, a model of a system describes how that system behaves. Such descriptions can be in the form of 
+words, diagrams, or equations depending on what is appropriate for the system being modeled. Although systems can include people or businesses 
+(think of role models or business models), we will be concerned with physical systems and their mathematical representation.
+—-------------------------------------------------------
+¿Qué es un modelo de sistema? En el nivel más básico, un modelo de un sistema describe cómo se comporta ese sistema. Dichas descripciones pueden 
+tener la forma de palabras, diagramas o ecuaciones, según lo que sea apropiado para el sistema que se está modelando. Aunque los sistemas pueden 
+incluir personas o negocios (piense en modelos a seguir o modelos de negocios), nos ocuparemos de los sistemas físicos y su representación 
+matemática.
+—-------------------------------------------------------
+
+ In Chapter 1, we discussed how a system can be represented simply and abstractly by a block diagram such as the one shown in Figure 2.1, in 
+which there is an input to the system and an output from the system. In this chapter, the focus is on what happens inside the block and the 
+mathematical relationship between the input and the output. 
+—-------------------------------------------------------
+En el Capítulo 1, discutimos cómo un sistema puede representarse de manera simple y abstracta mediante un diagrama de bloques como el que se 
+muestra en la Figura 2.1, en el que hay una entrada al sistema y una salida del sistema. En este capítulo, el enfoque está en lo que sucede 
+dentro del bloque y la relación matemática entre la entrada y la salida.
+—-------------------------------------------------------
+
+
+System models can take several forms, and some of these forms depend on the type of system. Every system we present can be modeled using either 
+differential equations (for continuous-time systems) or difference equations (for discrete-time systems). There is also a class of system known 
+as hybrid systems that have both continuous-time and discrete-time characteristics. Physical hybrid systems are typically modeled using 
+differential equations with discrete transitions. A classic example of a hybrid system is a bouncing ball when there are continuous-time 
+dynamics when the ball is in the air and discrete transitions when it hits the ground. In any case, these differential and difference equations 
+are time domain models. In Section 2.2, these equations are discussed in detail. These equations can also be generalized into a standard form 
+known as a state-space model, which is covered in Section 2.4.
+—-------------------------------------------------------
+
+Los modelos de sistema pueden tomar varias formas, y algunas de estas formas dependen del tipo de sistema. Cada sistema que presentamos se puede 
+modelar utilizando ecuaciones diferenciales (para sistemas de tiempo continuo) o ecuaciones en diferencias (para sistemas de tiempo discreto). 
+También hay una clase de sistema conocida como sistemas híbridos que tienen características tanto de tiempo continuo como de tiempo discreto. 
+Los sistemas híbridos físicos generalmente se modelan utilizando ecuaciones diferenciales con transiciones discretas. Un ejemplo clásico de un 
+sistema híbrido es una pelota que rebota cuando hay una dinámica de tiempo continuo cuando la pelota está en el aire y transiciones discretas 
+cuando toca el suelo. En cualquier caso, estas ecuaciones diferenciales y en diferencias son modelos en el dominio del tiempo. En la Sección 
+2.2, estas ecuaciones se discuten en detalle. Estas ecuaciones también se pueden generalizar en una forma estándar conocida como modelo de 
+espacio de estados, que se cubre en la Sección 2.4.
+—-------------------------------------------------------
+
+
+ Although differential and difference equations can tell us a lot about a system, sometimes they do not provide information about the system in 
+a form in which we can easily identify certain system characteristics. Another way of representing a linear system model, which provides an 
+alternative perspective, is in the Laplace domain or z domain using transfer functions. In this form, we can more easily see the frequency 
+response of a system and its stability properties. Transfer functions of both continuous-time and discrete-time systems are discussed in Section 
+2.3. 
+—-------------------------------------------------------
+
+Aunque las ecuaciones diferenciales y en diferencias pueden decirnos mucho sobre un sistema, a veces no brindan información sobre el sistema en 
+una forma en la que podamos identificar fácilmente ciertas características del sistema. Otra forma de representar un modelo de sistema lineal, 
+que proporciona una perspectiva alternativa, es en el dominio de Laplace o en el dominio z utilizando funciones de transferencia. De esta forma, 
+podemos ver más fácilmente la respuesta de frecuencia de un sistema y sus propiedades de estabilidad. Las funciones de transferencia de los 
+sistemas de tiempo continuo y discreto se analizan en la Sección 2.3.
+—-------------------------------------------------------
+
+Finally, in Section 2.5, the determination of model parameters is discussed. System identification refers to the process of figuring out the 
+constants of a system through experimentation. This process is different from modeling a system from physical principles, as can be done with 
+simpler systems. 
+With system identification, a system is treated more like a black box, and experiments and tests need to be performed to determine the 
+parameters. 
+
+It is important to point out that a system’s model is only a representation of its behavior and an imperfect one at that. A mathematical model 
+of a real system can never account for everything, and there will always be some source of error to mess up the description it provides. When 
+finding these imperfections, there is always the temptation to “fix” them by modifying the model to better fit the behavior we see. However, 
+this temptation must be kept at bay to prevent our models from becoming too complex. One has to keep in mind the tradeoff between complexity and 
+accuracy and decide when the model is “good enough” for its purpose. Unfortunately, there is no black and white answer to the question of how 
+good is “good enough.” The answer is application specific and can only be found through experience. 
+
+One example of a system that can have different types of models is vehicle traffic. On the one hand, the traffic can be thought of as fluid flow 
+with varying density as the vehicles get bunched or spread apart. In this scenario, fluid dynamics equations can be used for the model. On the 
+other hand, the model may be formulated to keep track of individual vehicles and their interactions with the other vehicles and the road 
+environment. Then in this scenario, equations of motion for each individual vehicle would be used, and their combination would describe the 
+entire system. These two types of models treat vehicle traffic at different scales. 
+The fluid model is macroscopic, and the individual vehicle models are microscopic. Depending on the application, one level of detail may be more 
+appropriate than the other.
+
+
+
+2.2 EQUATIONS OF MOTION 
+
+When we refer to equations of motion, we are referring to a set of equations that describes how a system changes in time. For the car suspension 
+system previously discussed, these equations describe the up and down motions of the car relative to the road surface as it drives and 
+experiences variations in the road surface. In this example, there truly is motion in the physical sense. Equations of motion, however, are more 
+general. As another example, consider a bank account earning interest. There is no physical motion happening in the account, but the money is in 
+fact “moving” in the sense that it is changing value with time. 
+
+In this section, we develop equations of motion for several different systems (car suspension, car kinematics, bank account, and a 
+computercontrolled vehicle) and show how to use MATLAB to represent and solve these equations. 
+
+2.2.1 Differential Equations for Continuous-Time Systems
+
+ Let us start with the popular example of the car suspension as shown in Figure 1.2. We will first develop the equations of motion from physical 
+principles and then discuss the form and meaning of these equations. 
+
+A simplified version of the system is shown in Figure 2.2. This version consists of two masses. The bottom mass m1 represents the wheel, and it 
+is connected to the ground by a spring (the flexion of the tire). In this simple model, we assume that the tire’s damping is negligible (a 
+simplification that leads to a “good enough” model in this case). The top mass m2 represents the portion of the car body supported by the wheel. 
+The mass m2 is connected to the wheel mass by a spring and damper (the shocks and linkage connecting them together). The variables x1 and x2 
+denote the height of the wheel and car, respectively, and the arrows indicate the direction of positive values. We assume that x1 ¼ 0 and x2 ¼ 0 
+are the equilibrium positions of both masses where the springs are not compressed or stretched. We also assume that r is the height of the road 
+above some reference. 
+
+To develop the equations of motion for this system, we first draw a free body diagram for each mass and then apply Newton’s second law of 
+motion. The free body diagram for m1 is shown in Figure 2.3. The large arrows indicate the direction of the force being applied to the body 
+caused by the movement of both masses. The dots above x1 and x2 indicate derivatives with respect to time.
+
+According to Newton’s second law, summing the forces on this body and setting it equal to mass times acceleration gives 
+
+k2ðx2  x1Þ þ bðx_2  x_1Þ  k1ðx1  rÞ ¼ m1€x1 (2.1) 
+
+Note that the effect of gravity can be ignored if we define our displacements, x1 and x2, with respect to the equilibrium positions of the 
+springs. Gravity is taken into account when we define the x1 ¼ 0 and x2 ¼ 0 positions by these equilibria because the gravitational force 
+creates an offset that is eliminated by this definition of zero displacement.
+
+ We now repeat the process for m2. First the free body diagram is shown in Figure 2.4
+
+
+
+Then summing the forces on m2 gives 
+
+k2ðx2  x1Þ  bðx_2  x_1Þ ¼ m2€x2 (2.2) 
+
+Finally, the car suspension system dynamics can be represented by the two equations of motion. 
+
+€x1ðtÞ þ b m1 x_1ðtÞ þ k1 þ k2 m1 x1ðtÞ  b m1 x_2ðtÞ  k2 m1 x2ðtÞ ¼ k1 m1 rðtÞ €x2ðtÞ þ b m2 x_2ðtÞ þ k2 m2 x2ðtÞ  b m2 x_1ðtÞ  k2 m2 x1ðtÞ ¼ 0
+
+Note that these equations describe a fourth-order system (i.e., there are two states x1 and x2, each with a second derivative). The final form 
+in (2.3) is in monic form. Also note that the variable t has been added to show explicitly which variables depend on time and which do not. 
+However the (t) is often dropped for brevity. The characteristics of monic form are: 
+
+1. State variables (x1 and x2) are collected on the left side of the equation. 
+
+2. Input variables (r) are collected on the right side of the equation. 
+
+3. State variables are collected together and arranged in descending order of the derivatives. 
+
+4. The highest derivative term in each equation has a coefficient of 1. 
+
+It is useful to put equations in a standard form because it flows easily into the concepts of transfer functions and state-space representations 
+of system. We will see this connection when these concepts are discussed in Sections 2.3 and 2.4. 
+
+The model in (2.3) is an ordinary differential equation (ODE) because it has one independent variable (t). In contrast, partial differential 
+equations (PDEs) have more than one independent variable. Partial differential equations are not discussed in this book, but interested readers 
+may consult Farlow (1993) as a starting point
+
+
+2.2.1.1 MATLAB Example: Car Suspension 
+
+We now discuss how to represent and simulate the car suspension system in MATLAB. The basic m-file that runs the simulation is shown below, and 
+the simulation results are shown in Figure 2.5. First we show the m-file that runs the basic simulation and describe how the simulation works. 
+
+% suspension_simulation.m % Close all figures and clear all variables close all clear all % How long to simulate (in seconds) t_end ¼ 5; % Set 
+initial conditions on the system x1_0 ¼ 0; x2_0 ¼ 0; x1_dot_0 ¼ 0; x2_dot_0 ¼ 0; % Solve the system equations [T X] ¼ ode45(@suspension_model,[0 
+t_end],[x1_dot_0 x1_0 x2_dot_0 x2_0]); % Save the results in a vector x1_dot ¼ X(:,1); x1 ¼ X(:,2); x2_dot ¼ X(:,3); x2 ¼ X(:,4); % Plot the 
+results plot(T,x1,'k',T,x2,'k--') xlabel('Time (s)') ylabel('Height (m)') title('Wheel Height and Car Height vs. Time') legend('Wheel Height, 
+x_1','Car Height, x_2') 
+
+We now discuss the above code in detail and describe each line. 
+
+close all clear all
+
+These first two lines of the code close figure windows and clear variables so that the simulation is starting with a clean slate. 
+
+t_end ¼ 5; 
+
+Next the simulation time is set and stored in the t_end variable. This value is used later in the code to solve the system equations for the 
+specified amount of time (5 seconds in this case). Note that MATLAB does not assign units. Rather, it is up to the user to interpret the results 
+and associate appropriate units with the values. We may wish to associate any system of units with (2.3), but in this example and throughout the 
+book, we generally use SI units. 
+
+x1_0 ¼ 0; x2_0 ¼ 0; x1_dot_0 ¼ 0; x2_dot_0 ¼ 0; 
+
+In these four lines, the initial conditions are set for the system. In this simulation, the wheel height, car height, and their derivatives set 
+to zero, meaning the system is initially at rest. These values are used to solve the system equations. 
+
+[T X] ¼ ode45(@suspension_model,[0 t_end],[x1_dot_0 x1_0 x2_dot_0 x2_0]); 
+
+The next line is the one that solves the system equations given by (2.3). 
+
+The command ode45 is MATLAB’s differential equation solver that can be used for nonstiff 1 ordinary differential equation problems with a medium 
+order of accuracy. Several other ODE solvers are available (e.g., ode23 and ode113) that may be more appropriate for certain equations. 
+
+The ode45 command uses three parameters to describe how the simulation should run. First,thefile containing thesystem equations 
+(suspension_model.m described below) is included after the @ symbol, indicating a function handle. Second, the simulation time parameters are 
+included in a vector, indicating that the equations should be solvedstarting at time zero and ending at t_end. Finally, the initial conditions 
+are included in a vector as the third parameter in the command. 
+
+Last, the ode45 command returns the results of the solution to the vector [T X]. After the solver runs, the time vector is stored in T, and the 
+solution to the differential equations is stored in matrix X. In the case of the car suspension system, T has 437 elements, and X is a 437  4 
+matrix with each row corresponding to the time and each column corresponding to the states x_1, x1, x_2, and x2 in the order that they appear in 
+the initial conditions and suspension_model.m file. 
+
+x1_dot ¼ X(:,1); x1 ¼ X(:,2); x2_dot ¼ X(:,3); x2 ¼ X(:,4); 
+
+These four lines extract the values from the X matrix and put them into separate vectors for each state. This step is not necessary, but it 
+simplifies working with the data. 
+
+plot(T,x1,'k',T,x2,'k--') xlabel('Time (s)') ylabel('Height (m)') title('Wheel Height and Car Height vs. Time') legend('Wheel Height, x_1','Car 
+Height, x_2') 
+
+These last five lines in the file plot x1 and x2 versus time for the 5 s of the simulation, add labels, and format the plot. The results of the 
+plot are seen in Figure 2.5. In the plot, notice that the wheel height and car height are at zero until 1 s, when there is a sudden increase and 
+then they settle to a value of 0.1. The fact that the wheel and car heights are both zero does not mean they are at the same height but rather 
+that they are in their equilibrium position with the springs not stretched or compressed beyond what gravity would do. 
+
+The jump in values at 1 second is a result of changing the input r(t) from 0 to 0.1. There was nothing in the main simulation program discussed 
+earlier that set the value of r, so where does this occur? The answer lies in the other file specifying the system model, suspension_model.m 
+shown below. 
+
+function dy ¼ suspension_model(t,y) % Define the model parameters m1 ¼ 70; % kg m2 ¼ 350; % kg k1 ¼ 176000; % N/m k2 ¼ 27000; % N/m b ¼ 2500; % 
+Ns/m
+
+% Define the input r(t) t_start ¼ 1; if (t < t_start) r ¼ 0; else r ¼ 0.1; end dy ¼ zeros(4,1); dy(1) ¼ -(b/m1)*y(1) - ((k1þk2)/m1)*y(2) þ 
+(b/m1)*y(3) þ (k2/m1)* y(4) þ (k1/m1)*r; dy(2) ¼ y(1); dy(3) ¼ (b/m2)*y(1) þ (k2/m2)*y(2) - (b/m2)*y(3) - (k2/m2)*y(4); dy(4) ¼ y(3); 
+
+We now describe this m-file line-by-line and how it relates to the system model in (2.3). 
+
+function dy ¼ suspension_model(t,y) 
+
+The first line of the file defines it as a function and gives its name (suspension_model), which is used in the ode45 command. The vectors t and 
+y hold the simulation time parameters [0 t_end] and initial conditions [x1_dot_0 x1_0 x2_dot_0 x2_0], respectively. 
+
+m1 ¼ 70; % kg m2 ¼ 350; % kg k1 ¼ 176000; % N/m k2 ¼ 27000; % N/m b ¼ 2500; % Ns/m 
+
+These five lines give the values to the constants used in the model.2 
+
+t_start ¼ 1; if (t < t_start) r ¼ 0; else r ¼ 0.1; end
+
+The if statement defines the input r(t). In this case, we wish to have r(t) be a delayed step function with a value of 0.1 after 1 second, as 
+shown in Figure 2.6. The transition time is set in the variable t_start, and when the ODE solver time is less than this value, the input is 
+zero. When the time exceeds 1 s, the input is 0.1. These input values are used in the system equations that follow. 
+
+dy ¼ zeros(4,1); 
+
+This line initializes the size of dy as appropriate. The vector dy stores the derivatives of each state variable, which get modified according 
+to (2.3). In this case, the system is fourth order, and the vector is created with four elements. Initially, the values are set to zero, but 
+these will be overwritten with the initial values of the system when the solver runs. 
+
+dy(1) ¼ -(b/m1)*y(1) - ((k1þk2)/m1)*y(2) þ (b/m1)*y(3) þ (k2/m1)* y(4) þ (k1/m1)*r; dy(2) ¼ y(1); dy(3) ¼ (b/m2)*y(1) þ (k2/m2)*y(2) - 
+(b/m2)*y(3) - (k2/m2)*y(4); dy(4) ¼ y(3); 
+
+These next four lines specify the system using (2.3), and we will go through a bit of detail to explain where they came from. The system is a 
+fourth-order system and thus needs four equations in the model, but there are only two equations specified in (2.3). Where do the other two 
+equations come from? 
+
+The answer lies in the concept states of the system, which is described in more detail in Section 2.4, but we will use it here to our advantage 
+in creating the model equations in MATLAB. Two obvious choices for states are x1 and x2, the wheel height and car height, respectively. We can 
+generate two more states by taking their derivatives, x_1 and x_2. Why not take another derivative to get two more states €x1 and €x2? One 
+reason is that the system is fourth order, and when we took the first derivative, that gave us four states, and no more are needed. Another 
+reason is that taking more derivatives will cause problems in the procedure we are about to outline. 
+
+The model equations in the function file need to provide update equations for each of the system’s states with respect to the system states and 
+inputs only. In the case state x1, we need to tell MATLAB how x1 changes with time; this is done by specifying its derivative in terms of the 
+states and inputs. In other words, 
+
+x_1 ¼ x_1 (2.4) 
+
+This may seem like a trivial equation, but it needs to be interpreted properly. The left side represents the derivative of x1, where x1 is a 
+state. The right side represents the derivative of x1, which is itself a state of the system. 
+
+The update equation for the state x_1 is not trivial and a bit more complicated. How does x_1 change with time? We specify it in terms of its 
+derivative, 
+
+€x1 ¼  b m1 x_1  k1 þ k2 m1 x1 þ b m1 x_2 þ k2 m1 x2 þ k1 m1 r (2.5) 
+
+which is obtained by solving the first equation in (2.3) for €x1. Similarly, we can go through the same process for x2. The update equation for 
+x2 is 
+
+x_2 ¼ x_2 (2.6) 
+
+and the update equation for x_2 is 
+
+€x2 ¼  b m2 x_2  k2 m2 x2 þ b m2 x_1 þ k2 m2 x1 (2.7) 
+
+We can now see why €x1 and €x2 cannot be states. The update equations would need to involve €x€1 and €x€2, which do not show up anywhere in the 
+derivation of the model. 
+
+For ease of notation, let’s define 
+
+y1 ¼ x_1 y2 ¼ x1 y3 ¼ x_2 y4 ¼ x2
+
+Then the update equations become 
+
+y_1 ¼  b m1 y1  k1 þ k2 m1 y2 þ b m1 y3 þ k2 m1 y4 þ k1 m1 r y_2 ¼ y1 y_3 ¼  b m2 y3  k2 m2 y4 þ b m2 y1 þ k2 m2 y2 y4 ¼ y3 (2.9) 
+
+These final equations are the ones that appear in the model file. Note that the choice of y1, y2, y3, and y4 was arbitrary. We could have 
+equivalently set them to any order of x_1, x1, x_2, and x2. We will see in Section 2.4 that there are conventions about how to define the state 
+variables that make certain forms of model immediately identifiable and easy to study. 
+
+The car suspension system is an example of a linear system with one input. The system is described by a set of linear differential equations, 
+meaning that the equations are linear combinations of the states and their derivatives. Furthermore, these differential equations obey the 
+principles of scaling and additivity as discussed in the previous chapter. We contrast this with an example of a nonlinear system and the 
+derivation of its nonlinear differential equations. 
+
+Consider a kinematic model for a car. In this model, we assume there is no slip on the wheels, and the vehicle is traveling in the x, y plane 
+with no vertical movement. We also consider only the movement of the vehicle and not acceleration. Under many conditions (e.g., on dry roads and 
+when the car is being driven within its handling limits), these assumptions are valid, and the kinematic model’s behavior closely matches the 
+actual car. Given these assumptions, the mathematical model can be derived starting with the coordinate definitions shown in Figure 2.7. 
+
+The exact position and orientation of the car in the global coordinate system can be described by four variables. The (x, y) coordinates give 
+the location of the center of the rear axle. The car’s angle with respect to the x-axis is given by q. The steering wheel’s angle with respect 
+to the car’s longitudinal axis is given by 4. The state of the car can be described by these four variables, and thus it is a fourth-order 
+system requiring four update equations.
+
+From the no-slip constraints, the instantaneous velocity of the car in the x and y directions is given as 
+
+x_ ¼ v1 cos q y_ ¼ v1 sin q (2.10) 
+
+where v1 is the linear velocity of the rear wheels. The location of the center of the front axle (x1,y1) is given by 
+
+x1 ¼ x þ l cos q y1 ¼ y þ l sin q (2.11) 
+
+and the velocity of this point is given by 
+
+x_1 ¼ x_  l _ q sin q y_1 ¼ y_ þ l _ q cos q (2.12) 
+
+Now if we apply the no-slip condition to the front wheels, meaning there can be no velocity component perpendicular to the direction of wheel 
+travel, then 
+
+y_1 cosðq þ 4Þ ¼ x_1 sinðq þ 4Þ (2.13)
+
+Substituting x_1 and y_1 from (2.12) into (2.13) and solving for _ q gives
+
+ _ q ¼ tan 4 l v1 (2.14) 
+
+Then the complete model for the car is 
+
+x_ ¼ v1 cos q y_ ¼ v1 sin q _ q ¼ tan 4 l v1 4_ ¼ v2 (2.15) 
+
+This is a two-input system in which v1 is the linear velocity of the rear wheels and v2 is the angular velocity of the steering wheels. 
+
+2.2.1.2 Simulink Example: Kinematic Car Model 
+
+Below is a simulation of the kinematic car model using Simulink. This system could be modeled in MATLAB using the above procedure for the 
+suspension system, but instead we will demonstrate the power of Simulink. The Simulink model for the system is shown in Figure 2.8. The model in 
+the figure is annotated to indicate the location of x, y, q, 4, l, v1, and v2. Creating and running the model in Simulink is easier than writing 
+the MATLAB code and gets the same results. However, the MATLAB code offers much more flexibility when system interactions become more complex. 
+
+The results of running the Simulink simulation for 10 s are shown in Figures 2.9 and 2.10. The length of the car is set to 1 m, the velocity 
+input v1 is set to a constant of 5 m/s, and the steering velocity input v2 is set to a sinusoid of amplitude 0.5 rad/s and frequency 1 rad/s. As 
+with the previous MATLAB example, units are not associated the values but must be interpreted by the user. In Figure 2.9, all the states are 
+plotted versus time using “Scope” blocks. In Figure 2.10, the x,y position of the car is shown having been plotted using the “XY graph” block. 
+The initial position of the car is at (0,0) facing along the x-axis and with straight front wheels because the initial conditions of each 
+integrator was set to zero (the default value). Changing the initial position of the car is obtained by setting the integrator initial 
+conditions.
+
+2.2.2 Difference Equations for Discrete-Time Systems 
+
+Just as differential equations describe the dynamics of continuous-time systems, difference equations describe the dynamics of discrete-time 
+systems. Although the principle is the same, difference equations are often easier to derive and simulate because of their discrete, 
+step-by-step nature. 
+
+As a first example, let’s again consider the bank account with accruing interest as discussed in Chapter 1. In this example, the formula for the 
+amount of money in the account is 
+
+An ¼ A0  1 þ r 12 n (2.16) 
+
+where r is the annual interest rate, n is the number of months, A0 is the initial deposit, and An is the amount of money in the account in month 
+n. This variable n represents a discrete interval of time. If we think about how the amount of money changes at each step, this will give a 
+difference equation to update A, similar to the role differential equations played in the previous two examples. Mathematically, the change is 
+expressed as 
+
+An  An1 ¼ A0  1 þ r 12 n  A0  1 þ r 12 n1 ¼ A0  1 þ r 12 n11 þ r 12   1  ¼ An1  r 12  (2.17) 
+
+Solving for An yields an update equation. 
+
+
+An ¼ An1 þ An1  r 12  (2.18) 
+
+The equation lends itself nicely to a difference equation form, which looks similar but has some notational differences. 
+
+A½n ¼  1 þ r 12  A½n  1 (2.19) 
+
+In this form of the equation, the [n] is used to explicitly show how the expression depends on the discrete-time variable n. It is analogous to 
+showing (t) in the continuous-time case. This equation is already in standard form because the current value of A, denoted by A[n], is isolated 
+and has a coefficient of 1. Note that r is a constant (the interest rate), so the coefficient of A[n  1] is a constant. As with the 
+continuous-time system, this standard form allows us to more efficiently convert to transfer functions and state-space form. 
+
+2.2.2.1 MATLAB Example: Bank Account with Interest 
+
+We now discuss how to represent and simulate the bank account in MATLAB. You will notice that the discrete-time system simulation file is much 
+simpler than the continuous-time case, mainly because the discrete-time update equation is almost exactly in the form that can be used in 
+MATLAB, and each entry in the vector represents a discrete time step. One does need to be careful about indices for the vectors, however. In the 
+example, the 0 subscript refers to the initial time, but MATLAB does not allow 0 as an index to its arrays. Rather, array indices start at 1, 
+which can cause confusion between the convention used in mathematical representations and its MATLAB implementation. For this reason, two 
+separate array variables are created: n to represent the month as in the equation and k to represent the array index. These two arrays are the 
+same length, but the values in them are offset by 1. 
+
+The basic m-file that runs the simulation is shown below, and the simulation results are shown in Figure 2.11. 
+
+% bank_account.m close all clear all r ¼ 0.05; % interest rate n_max ¼ 11; % how long to run the model n ¼ 0:n_max; % define the n vector A(1) ¼ 
+10000; % initial deposit for k ¼ 2:length(n) A(k) ¼ (1þr/12)*A(k1); end
+
+plot(n,A,'o') y ¼ [10000:100:10500]; set(gca,'YTick',y) set(gca,'YTickLabel',sprintf('%5.0fj',y)) xlabel('Month') ylabel('Amount') 
+
+2.2.3 Models for Hybrid Systems 
+
+Now let us consider another example of a real-world discrete-time system: the discretization of a continuous-time system. As discussed in 
+Chapter 1, continuous-time systems are often controlled by some type of computer system (PC based or microprocessor), and these computers are 
+inherently discrete-time systems because they run off a clock and their events occur in discrete time intervals. This is an example of a hybrid 
+system, one that has continuous-time and discrete-time parts. The continuous-time part of the system is the mechanical or physical part such as 
+the turning motor or the vibrating mass. The discrete-time part is the computer control that reads sensors and updates command signals at a 
+specific sampling rate. 
+
+Hybrid systems are more general than this computer-controlled example. Simply stated, a hybrid system is one that has discrete and continuous 
+dynamics such as the familiar bouncing ball example. If a ball is dropped from some height, it continues to fall until it hits the ground. Up to 
+this point, the dynamics were continuous, and the ball was falling because of gravity. However, when it hits the ground, at that moment its 
+velocity changes direction. In a perfect collision, it would travel with the same speed in the moments before and after impact but with opposite 
+directions. Its new velocity would then be initial conditions for the system equation. 
+
+Another example of a hybrid system is a vehicle with a geared transmission. In each of the gears, the vehicle has certain continuous dynamics 
+that relate the fuel input to the speed and acceleration, and these dynamics depend on what gear is selected. Changing gears is a discrete 
+transition between each of these continuous dynamics. 
+
+Hybrid systems are an area of much recent research, and readers are encouraged to explore the references at the end of the chapter (Goebel, 
+Sanfelice, & Tell, 2012; van der Schaft & Schumacher, 2000) for more information. 
+
+We illustrate the concept of hybrid systems through an example of a computer-controlled car model. To do this, we will revisit the kinematic car 
+model in Simulink and simulate the system as if the velocity commands were coming from a computer at discrete intervals. But first, an overview 
+of the process is provided. 
+
+The system simulation follows the steps shown in Figure 2.12. The first step is to set the initial conditions and initial control inputs to the 
+system. With these initial values known, the system equations are solved for T seconds, where T is the sampling time of the system. After this 
+solution is obtained, we see what the endpoint of the solution is and take it to be the initial condition of the system when solving the 
+equations for the following iteration. Also, the system inputs must be chosen (either by closed-loop feedback or an open-loop scheme). With 
+these new initial conditions and inputs, the system equations are solved for another T seconds. This procedure of determining system evolution 
+in T second intervals continues until enough time has elapsed or a stopping condition is met.
+
+Figure 2.13 shows a possible output of a system simulation. The simulation is carried out over five sample intervals. The curve between each 
+point is the solution to the system equations. Then the endpoint of the curve in each interval is the initial condition to the system equations 
+for the next interval. Because of this condition, the overall solution is continuous, but it may not be differentiable (e.g., at time 2T in 
+Figure 2.13). The reason for this lack of smoothness is the inputs to the system. New inputs are applied at each time T, 2T, 3T, . , and the 
+inputs themselves are piecewise constant, being held at a constant value during the intervals that the system equations are being solved but may 
+change to new values at each sampling time. 
+
+2.2.3.1 MATLAB Example: Computer-Controlled Vehicle Dynamics 
+
+We now illustrate the above procedure with an example in MATLAB. This simulation is set up in two parts. The MATLAB code simulates what would 
+run on a microprocessor or computer. It reads the current state of the system from sensors and outputs the commands to the system for control. 
+The Simulink block diagram simulates the system dynamics. The MATLAB code calls the Simulink file to initiate the process of solving the system 
+equations. 
+
+The MATLAB code is shown below and the Simulink block diagram is shown in Figure 2.14. 
+
+% hybrid_car.m close all clear all % Initialize constants T ¼ 0.01; % Sampling time (seconds) t_stop ¼ 10; % Simulation run time (seconds) t ¼ 
+[0:T:t_stop]; % Time vector v1 ¼ 5; % Rear wheel linear speed (m/s) v2 ¼ 0.5*sin(t); % Steering wheel speed (rad/s)
+
+% Set initial conditions x0 ¼ 0; y0 ¼ 0; theta0 ¼ 0; phi0 ¼ 0; % Set up state storage arrays X ¼ zeros(size(t)); Y ¼ zeros(size(t)); THETA ¼ 
+zeros(size(t)); PHI ¼ zeros(size(t)); for k ¼ 1:length(t) % Update state storage arrays X(k) ¼ x0; Y(k) ¼ y0; THETA(k) ¼ theta0; PHI(k) ¼ phi0; 
+% Get current inputs v10 ¼ [0 v1]; v20 ¼ [0 v2(k)]; % Simulate car movement for time T simOut ¼ sim('kinematic_car','StopTime',num2str(T)); % 
+Store last value of state from simulation x0 ¼ simOut.get('x').data(end); y0 ¼ simOut.get('y').data(end); theta0 ¼ 
+simOut.get('theta').data(end); phi0 ¼ simOut.get('phi').data(end); end plot(t,X) title('x vs. t') xlabel('Time (seconds)') ylabel('x (meters)') 
+figure plot(t,Y) title('y vs. t') xlabel('Time (seconds)') ylabel('y (meters)') figure plot(t,THETA)
+
+title('ytheta vs. t') xlabel('Time (seconds)') ylabel('ytheta (radians)') figure plot(t,PHI) title('yphi vs. t') xlabel('Time (seconds)') 
+ylabel('yphi (radians)') For the first part of the code: T ¼ 0.01; % Sampling time (seconds) t_stop ¼ 10; % Simulation run time (seconds) t ¼ 
+[0:T:t_stop]; % Time vector v1 ¼ 5; % Rear wheel linear speed (m/s) v2 ¼ 0.5*sin(t); % Steering wheel speed (rad/s) 
+
+We set the sampling time to 0.01 s, set the end time of the simulation to be 10 s, and define the time vector to go from 0 to 10 s in 0.01-s 
+increments. Also, the inputs are chosen for the entire simulation. The rear wheel speed is set to a constant of 5 m/s, and the steering wheel 
+speed changes according to a slowly varying sinusoid. Using this method, the system inputs are known a priori and thus follow an open loop 
+scheme. 
+
+% Set initial conditions x0 ¼ 0; y0 ¼ 0; theta0 ¼ 0; phi0 ¼ 0; 
+
+Next, the initial conditions are chosen for the system. As in the previous Simulink example, the initial position of the car is at (0,0) facing 
+along the x-axis and with straight front wheels. These variables will be updated at each sampling interval to hold the new initial conditions 
+for the next iteration of the simulation loop. 
+
+% Set up state storage arrays X ¼ zeros(size(t)); Y ¼ zeros(size(t)); THETA ¼ zeros(size(t)); PHI ¼ zeros(size(t)); 
+
+These next four lines are for housekeeping purposes. The variables X, Y, THETA, and PHI are created to hold the values of the car’s four states 
+at each sampling interval so the results can be plotted at the end of the simulation versus time. For this reason, they are made to have the 
+same size as the t vector. The entire array is created before the for loop and set to zero so that MATLAB does not need to resize the array each 
+time through the loop. (This can be a time-saving measure in many situations.) 
+
+Now the main for loop begins. First, inside the loop 
+
+% Update state storage arrays X(k) ¼ x0; Y(k) ¼ y0; THETA(k) ¼ theta0; PHI(k) ¼ phi0; 
+
+These four lines update the storage arrays with the current initial condition. (The first time through the loop, these are set to the user’s 
+initial condition of all zeros.) 
+
+% Get current inputs v10 ¼ [0 v1]; v20 ¼ [0 v2(k)]; 
+
+These following two lines set the inputs for the system equations to be solved in the next line. For the first input, the assignment is 
+redundant because v1 is a constant (5 m/s), and the same value is stored each time through the loop. However, placing the assignment here allows 
+for easy updating of the code for a time-varying v1. The variable v2 is time-varying, and thus the input to the system equation needs to be 
+updated each time through the loop as denoted using the index k, the counter in the for loop. 
+
+In both cases, notice the syntax of the assignment statement. The variables v10 and v20 will be passed to the sim command in the next line and 
+will be read into the Simulink model through the “From Workspace” block. This block requires an array containing all the inputs to be applied to 
+the Simulink model and a time index for each one. For this simulation, we are sending a single input value during each iteration; thus, the 
+array has only one row. The zero in the first column is the time index. 
+
+
+% Simulate car movement for time T simOut ¼ sim('kinematic_car','StopTime',num2str(T)); 
+
+The sim command runs the Simulink model contained in the file “kinematic_car.mdl.” The command allows the user to specify several parameters in 
+the model, but in this case, we only specify the stop time. The “StopTime” parameter is the one we wish to define, and the following argument in 
+the list, num2str(T), is used because the command expects the stop time value to be passed as a string. The entire list of parameters can be 
+found in the MATLAB documentation. 
+
+The Simulink model called in this command is shown in Figure 2.14. This model is almost identical to the one used in Simulink Example 2.2.1.2, 
+but there are a few key differences. First is the way v1 and v2 are generated. Here, they are passed from the MATLAB code as described above 
+using the “From Workspace” block rather than created in Simulink using the “Constant” and “Sine Wave” blocks as in the previous example. 
+
+Second, the system states x, y, q, and 4 are returned to the MATLAB program using the “To Workspace” blocks. The labels on the blocks must match 
+the variables that are used in MATLAB. In the previous example, these states were simply plotted using the “Scope” blocks. If the plotting was 
+done within Simulink, then only a portion of the entire trajectory would be shown (for that sampling interval) and overwritten the next time the 
+sim command is called. 
+
+Finally, the initial conditions of each integrator (the initial conditions of the system) are passed from MATLAB. This is accomplished by double 
+clicking on the “Integrator” block and setting the initial condition to be the variable in MATLAB. The parameters for the x integrator block are 
+shown in Figure 2.15. The name used as the “Initial condition” parameter (x0) must match the variable name in MATLAB. This is the key to 
+allowing us to update the initial condition of the system for each iteration by saving the last values of x, y, q, and 4 and using them as the 
+new initial conditions in the next iteration. 
+
+Returning to the sim command in MATLAB, the output stored in the variable simOut is an object containing all the values from the Simulink model 
+simulation. To obtain the values from the simulation, the following object oriented assignment statements are used. 
+
+% Store last value of state from simulation x0 ¼ simOut.get('x').data(end); y0 ¼ simOut.get('y').data(end); theta0 ¼ 
+simOut.get('theta').data(end); phi0 ¼ simOut.get('phi').data(end);
+
+In these lines, the .get allows us to access the variables that were sent back from Simulink using the “From Workspace” block. The variable 
+names from those blocks must appear in the parentheses surrounded by single quotes. The .data returns all the values stored in those variables. 
+In our case, we are only interested in the last value of the solution because this represents the value of the variable at the sampling time and 
+is used as the initial condition for the next iteration. Using end as the index of the array allows us to quickly obtain the last value in the 
+array without knowing the exact size of the array. 
+
+The final lines of code outside the for loop are used to plot the simulation data and format the figures. The results of the simulation are 
+shown in Figure 2.16. Notice that these results match those obtained in the Simulink simulation of the kinematic car shown in Figure 2.9. The 
+reason for the similarity is the hybrid simulation was run with a sampling time T of 0.01 s, a short interval that accurately models the 
+physical system. In Figure 2.17, the same results are shown with the sampling time increased to 0.5 s. In this case, the results differ and the 
+piecewise nature of the system can be seen.
+
+2.2.4 Flows, Vector Fields, and the Phase Plane 
+
+Up to this point, we have looked at the time evolution of the variables in a particular waydplotted with time on the horizontal axis and the 
+variable on the vertical axis. This form of viewing data is intuitive and provides a nice picture of how the individual variables evolve. 
+However, there is another way to look at the data, particularly for second-order systems, which shows relationships between the variables. Known 
+as a phase plot, this is a plot commonly showing x_ versus x, where x_ and x are the states of the system. Time is not shown explicitly, but the 
+resulting curves are the system’s trajectory parameterized by time. We saw a hint of what a phase plot is in Figure 2.10, which shows the (x,y) 
+position of the car as it evolved over time. 
+
+In general, an Nth order continuous dynamical system can be represented by a system of N differential equations. 
+
+x_1 ¼ f1ðx1; x2; /; xN Þ x_2 ¼ f2ðx1; x2; /; xN Þ « x_N ¼ fN ðx1; x2;/; xN Þ (2.20) 
+
+For now, we assume the system inputs are set to zero. We can think of the variables x1, x2, ., xN as flowing through their N-dimensional space, 
+starting at some initial state and moving according to their derivatives. This flow is defined by the vector field (f1, f2, ., fN) which is used 
+to generate the phase plot as shown in Figure 2.18 for a second-order system. In the figure, one of the states is plotted against the other (x2 
+vs. x1, commonly x2 ¼ x_1). The
+phase plot consists of a smooth curve showing how x1 and x2 evolve over time from initial conditions. Each point on the curve has a vector 
+tangent to the curve whose magnitude and direction are defined by ðx_1; x_2Þ, the vector field. If you imagine traveling along the curve, these 
+tangent vectors indicate your velocity. The longer the tangent vector is, the faster you are moving. 
+
+Let us illustrate these concepts with a concrete example of a pendulum as shown in Figure 2.19. Assume the pendulum has length l with all its 
+mass m concentrated at the end and that it makes an angle of q with vertical. We now derive the differential equation for this system. 
+
+Assume the only downward force on the pendulum is due to gravity, resulting in a torque pulling the pendulum toward q ¼ 0. Also assume there is 
+frictional torque acting in the direction opposite the motion and that it is proportional to the pendulum’s speed. Summing the torques gives 
+
+mgl sin q  b_ q ¼ I€q (2.21) 
+
+where m is the mass of the pendulum, g is gravitational acceleration, l is the pendulum length, b is the coefficient of friction, and I is the 
+mass moment of inertia. Using I ¼ ml2 and simplifying results in the second-order equation for the pendulum. 
+
+€q ¼  g l sin q  b ml2 _ q (2.22)
+
+We next generate a phase plot of _ q vs. q for this system using MATLAB, but first we convert (2.22) into state-space form as we did with the 
+car suspension in MATLAB Example 2.2.1.1. 
+
+First define two states 
+
+x1 ¼ q x2 ¼ _ q (2.23) 
+
+and then obtain the update equations for each state, x_1 and x_2 x_1 ¼ x2 x_2 ¼  g l sin x1  b ml2 x2 (2.24) 
+
+2.2.4.1 MATLAB Example: Phase Plot of a Pendulum 
+
+We now enter the model of the pendulum into MATLAB much like we did for the previous examples. The simulation results are shown in Figures 2.20 
+and 2.21 for b ¼ 0 and Figures 2.22 and 2.23 for b ¼ 0.1. The basic m-file that runs the simulation is shown after the figures. This m-file has 
+some differences from the previous examples, and we will discuss those differences. 
+
+First let’s look at the results in the figures. Figure 2.20 shows the phase plot for the pendulum with no friction (b ¼ 0). The initial angle is 
+45 degrees or 0.79 radians, and the initial speed is zero. The initial condition is denoted by the circle on the plot. At this point, there is a 
+vector pointing down. This vector is defined by ð_ q; €qÞ, so the component of the vector along the horizontal axis of the plot is 0 because by 
+the initial condition _ q ¼ 0. The component along the vertical axis is negative, indicating that the pendulum is accelerating back toward q ¼ 0 
+due to gravity. 
+
+At the point (0,-2.4) on the plot, notice that the pendulum is at its vertical position, and its rotational velocity is at its minimum value 
+(although its absolute value is at a maximum). The vector is pointing to the left, indicating that the velocity is negative and its acceleration 
+is zero. Notice also that all around the curve, the vectors are the same length, meaning that ffiffiffiffiffiffiffiffiffiffiffiffiffiffi _ q 2 þ 
+€q 2 q is constant.
+
+Figure 2.21 shows q and _ q versus time. For each time instant, if the values of q and _ q are plotted as points, the phase plot is generated. 
+Furthermore, the slopes of each of the time plots give the horizontal and vertical components of the vector in the phase plot. 
+
+Figures 2.22 and 2.23 show the results when there is friction by setting b ¼ 0.1. Starting with the same initial conditions as before, the phase 
+plot (see Figure 2.22) spirals inward toward (0,0). Note that the lengths of the vectors decrease as the curve moves away from the initial 
+point. Eventually, the pendulum stabilizes to q ¼ 0 and stops moving. The origin is an example of a stable equilibrium point (discussed further 
+in Sections 3.3 and 3.4). In Figure 2.23, the angular position and velocity versus time are seen to have oscillations that eventually dampen to 
+zero. 
+
+Now let’s discuss how these results were generated. Note that inMATLAB, there are usually several ways to accomplish a desired result, and which 
+one you choose depends on exactly what you want. For example, in this case, the phase plot could have been generated using the odephas2 as the 
+OutputFcn setting in the odeset function. However, this option does not produce a desirable looking plot, so the quiver function was used 
+instead. This way required more code, but the resulting plots were more appropriate for this discussion. 
+
+% pendulum_simulation.m % Close all figures and clear all variables close all clear all % How long to simulate (in seconds) t_end ¼ 10; t_sample 
+¼ 0.1; t ¼ [0:t_sample:t_end]; % Define the model parameters m ¼ 0.1; % kg l ¼ 1; % m b ¼ 0.1; % kg*m ^ 2/s g ¼ 9.8; % m/s ^ 2
+
+
+
+% Set initial conditions on the system theta_0 ¼ 45*pi/180; theta_dot_0 ¼ 0; % Create vectors for storing data theta ¼ zeros(size(t)); theta_dot 
+¼ zeros(size(t)); % Solve the system equations for k ¼ 1:length(t) theta(k) ¼ theta_0; theta_dot(k) ¼ theta_dot_0; [T result] ¼ 
+ode45(@pendulum_model,[0 t_sample],[theta_0 theta_dot_0],odeset,m,l,b,g); theta_0 ¼ result(end,1); theta_dot_0 ¼ result(end,2); end x ¼ theta; y 
+¼ theta_dot; u ¼ theta_dot; v ¼ -g*sin(theta)/l-b/(m*l^ 2)*theta_dot; % Create the phase plot quiver(x,y,u,v) hold on plot(theta,theta_dot,'b') 
+plot(theta(1),theta_dot(1),'bo') axis([-1 1 -2.5 2.5]) xlabel('ytheta') ylabel('ythetayprime') title('Pendulum Phase Plot') % Plot the results 
+figure plot(t,theta,'k',t,theta_dot,'k–') xlabel('Time (s)') ylabel('Angle (radians) and Angular Velocity (radians/s)') title('Pendulum Angle 
+and Velocity vs. Time') legend('Pendulum Angle,ytheta','Pendulum Velocity,ytheta^yprime') 
+
+The above code follows the same basic structure as the hybrid system in the previous example, which simulated the system using sampling. The 
+reason for using the same structure here is that we are “sampling” the trajectory at certain points so that we can plot the vectors at 
+appropriate points along the curve (but not too many to crowd the figure) while still having a smooth curve underneath. 
+
+% How long to simulate (in seconds) t_end ¼ 10; t_sample ¼ 0.1; t ¼ [0:t_sample:t_end]; 
+
+The code begins with initializing the time vector. The simulation is set to run for 10 s with a sampling time of 0.1 s. As in the hybrid system 
+example, the “continuous” part of the system will be executed for 0.1 s to determine what the values of the system variables are during that 
+time. The ending value of these variables are then used as initial condition for the next sampling period, with these values also being stored 
+in an array for plotting the results later in the code. 
+
+% Define the model parameters m ¼ 0.1; % kg l ¼ 1; % m b ¼ 0.1; % kg*m ^ 2/s g ¼ 9.8; % m/s ^2 
+
+Next, the constants (mass, pendulum length, friction coefficient, and gravitational acceleration) for the problem are defined. This is a change 
+from what was done in previous examples, in which the constants were defined in the model file or Simulink file. The reason for this change is 
+the values must be used to generate the vector field values later in the file. This change also means the ode45 command must be called in a 
+slightly different way, as we will see below. 
+
+% Set initial conditions on the system theta_0 ¼ 45*pi/180; theta_dot_0 ¼ 0; 
+
+In these two lines, the initial conditions of the pendulum are set to an angle of 45 degrees and an angular velocity of zero. 
+
+% Create vectors for storing data theta ¼ zeros(size(t)); theta_dot ¼ zeros(size(t)); 
+
+The vectors for storing q and _ q are created next. This step is to minimize code run time as before.
+
+% Solve the system equations for k ¼ 1:length(t) theta(k) ¼ theta_0; theta_dot(k) ¼ theta_dot_0; [T result] ¼ ode45(@pendulum_model,[0 
+t_sample],[theta_0 theta_dot_0],odeset,m,l,b,g); theta_0 ¼ result(end,1); theta_dot_0 ¼ result(end,2); end 
+
+This for loop is where the system equations are solved, simulating the “continuous” part of the system as before. There is one difference 
+between this code and the previous examples, and it is how the ode45 command is called. There are extra entries in the parameter list. The 
+odeset function is included to specify that default parameters are used. Then the last set of parameters includes the constants for the system 
+(m, l, b, and g). The pendulum_model.m file is shown after the discussion of the main code. 
+
+x ¼ theta; y ¼ theta_dot; u ¼ theta_dot; v ¼ -g*sin(theta)/l-b/(m*l ^ 2)*theta_dot; 
+
+In these four lines, the variables needed for the quiver command to generate the phase plot are created. The variable names x, y, u, and v were 
+chosen to match the documentation for the command. The values in x and y are plotted to create the trajectory curve. The values in u and v are 
+the vector fields from (2.24) and are used to plot the arrows along the curve. Because of the way the state variables were defined in (2.23), y 
+and u happen to be the same. 
+
+% Create the phase plot quiver(x,y,u,v) hold on plot(theta,theta_dot,'b') plot(theta(1),theta_dot(1),'bo') axis([-1 1 -2.5 2.5]) 
+xlabel('ytheta') ylabel('ythetayprime') title('Pendulum Phase Plot') 
+
+Next, the quiver command plots the points with their tangent vectors attached as arrows. There are several options for specifying how the plot 
+looks, including a scaling factor to adjust the lengths of the vector arrows. Following the quiver plot, the full trajectory is plotted in blue 
+(“b”) underneath the arrows, and the initial condition is plotted as “o” in blue as indicated by the “bo” parameter in the plot command. Then 
+the axes are scaled to appropriate values to show the whole plot and labeled. The model file is shown below. 
+
+function dx ¼ pendulum_model(t,x,m,l,b,g) dx ¼ zeros(2,1); dx(1) ¼ x(2); dx(2) ¼ (-g/l)*sin(x(1))-(b/(m*l^ 2))*x(2); 
+
+This m-file model is similar to the one used in the car suspension example, with one major difference. The constants for the problem are passed 
+to the function as parameters rather than defined in the file so that they can be used in the main m-file. 
+
+We have only introduced what phase plots are and how to produce them in MATLAB. However, these plots are rich with information about system 
+behavior. In Chapter 3, we will see how they can be useful tools to study stability and equilibrium points in dynamical systems. 
+
+2.3 TRANSFER FUNCTIONS 
+2.3.1 Overview 
+
+So far we have dealt exclusively with systems in the time domain. We have used differential equations and difference equations to mathematically 
+represent how a system behaves, and we have plotted variables versus time and generated phase plots. However, there is another way to 
+mathematically represent systems that is a bit more abstract but holds much information. 
+
+A transfer function (or system function) is a frequency domain representation of a dynamical system. Before giving going further, let us first 
+express three assumptions that we will use when discussing transfer functions. 
+
+1. Transfer functions are used for linear time-invariant systems. Nonlinear or time-varying systems need different analysis techniques.
+
+2. Transfer functions assume the system is initially at rest (zero initial conditions). An example of trying to use transfer functions with 
+nonzero initial conditions (and the associated difficulties) will be given.
+
+3. Transfer functions describe behavior between a single input and a single
+output. Multi-input and multi-output systems have more than one
+transfer function to describe the various inputeoutput relationships.
+Simply stated, a transfer function of a continuous-time system is
+defined by
+H.s. . Y.s.
+X.s. (2.25)
+where X(s) and Y(s) are the Laplace transforms of the system input x(t) and
+output y(t) respectively.
+For a discrete-time systems, the transfer function is defined by
+H.z. . Y.z.
+X.z. (2.26)
+where X(z) and Y(z) are the z-transforms of the system input x[n] and
+output y[n], respectively.
+We will not discuss Laplace and z-transform theory in detail, nor will
+we derive many of the relationships and characteristics. In the following
+sections, we will discuss what the transforms and transfer functions are, how
+they are used, and apply them to various examples.
+2.3.2 Laplace Transforms for Continuous-Time Systems
+Laplace transforms are typically introduced in a course on differential
+equations, and they are used to provide an alternative method for solving
+differential equations using algebraic methods. This method is quite useful
+in dynamical system theory in which systems are described by differential
+equations. If we know the input to the system x(t) and the transfer function
+H(s), we can determine the output y(t) according to the path shown in
+Figure 2.24. In the figure, if x(t) is known, we take the Laplace transform,
+denoted by L . Then we multiply the result by H(s) and take the inverse
+Laplace transform, denoted by L -1, to get y(t). Although more steps are
+required than directly solving the differential equation, the steps are simpler,
+and the many properties of Laplace transforms may be used to make the
+problem even simpler.
+The definition of a Laplace transform of a continuous-time signal x(t) is
+X.s. .
+ZN
+ N
+x.t.e stdt (2.27)
+
+
+In this definition, s is the Laplace variable and is a complex number
+typically denoted by s . s . ju, where j is
+ffiffiffiffiffiffiffi
+ 1
+p
+.
+The inverse Laplace transform is given by
+x.t. . 1
+2pj
+Zs.jN
+s jN
+X.s.estds (2.28)
+In practice, the definitions in (2.27) and (2.28) are rarely used. Instead,
+tables of transforms and their properties are commonly used to simplify the
+solution procedure outlined in Figure 2.24.
+For our purposes in finding the transfer functions of systems, we
+introduce notation and properties that will be useful to us. First is to define
+the notation for signals and their transforms. Table 2.1 shows three variables
+{x(t)}
+–1 {x(t)}
+X(s)
+y(t) Y(s)
+x(t)
+X(s)H(s)
+Laplace
+transform
+method
+Figure 2.24 Steps in the Laplace transform method of solving differential equations.
+Table 2.1 Notation for Laplace Transforms
+Time Domain
+Signal
+Laplace
+Transform
+x.t.4X.s.
+y.t.4Y.s.
+q.t.4Q.s.
+System Modeling 57
+
+
+we have used thus far, x(t), y(t), and q(t). These time domain signals are
+represented by lower case letters and are shown explicitly to be functions of
+t. Their Laplace transforms are represented by the same letter capitalized and
+are functions of s.
+Three properties of Laplace transforms will be particularly useful to us as
+we derive transfer functions: linearity and differentiation. These properties
+are illustrated in Table 2.2.
+As an example of deriving a transfer function, we return to the suspension
+system model Equations (2.3) repeated here.
+€x
+1.t. . b
+m1
+_x
+1.t. . k1 . k2
+m1
+x1.t.   b
+m1
+_x
+2.t.   k2
+m1
+x2.t. . k1
+m1
+r.t.
+€x
+2.t. . b
+m2
+_x
+2.t. . k2
+m2
+x2.t.   b
+m2
+_x
+1.t.   k2
+m2
+x1.t. . 0
+(2.29)
+We wish to find the transfer function of the system from road input R(s)
+to the car height output X2(s). In other words, the transfer function is X2.s.
+R.s. .
+The first step is to convert (2.29) by taking the Laplace transform term
+by term using the properties shown in Tables 2.1 and 2.2. Because the
+Laplace transform is a linear operation, the constant multipliers remain
+constant.
+s2X1.s. . b
+m1
+sX1.s. . k1 . k2
+m1
+X1.s.   b
+m1
+sX2.s.   k2
+m1
+X2.s. . k1
+m1
+R.s.
+ 
+s2 . b
+m1
+s . k1 . k2
+m1
+ 
+X1.s.  
+ 
+b
+m1
+s . k2
+m1
+ 
+X2.s. . k1
+m1
+R.s.
+(2.30)
+s2X2.s. . b
+m2
+sX2.s. . k2
+m2
+X2.s.   b
+m2
+sX1.s.   k2
+m2
+X1.s. . 0 (2.31)
+
+
+Solving (2.31) for X1
+X1.s. .
+s2 . b
+m2
+s . k2
+m2
+b
+m2
+s . k2
+m2
+!
+X2.s. (2.32)
+and plugging into (2.30) eliminates X1, yielding an expression with only X2
+as the output and R as the input.
+ 
+s2 . b
+m1
+s . k1 . k2
+m1
+ 
+s2 . b
+m2
+s . k2
+m2
+b
+m2
+s . k2
+m2
+!
+X2.s.
+ 
+ 
+b
+m1
+s . k2
+m1
+ 
+X2.s. . k1
+m1
+R.s.
+(2.33)
+Simplifying gives the transfer function:
+X2.s.
+R.s.
+.
+ 
+k1b
+m1m2
+ 
+s . k2
+b
+s4 .
+ 
+b
+m1
+. b
+m2
+ 
+s3 .
+ 
+k2
+m2
+. k1.k2
+m1
+ 
+s2 . bk1
+m1m2
+s . k1k2
+m1m2
+(2.34)
+This transfer has been put into monic form, meaning the coefficients of
+the highest order of s in the numerator and denominator are 1. This is
+accomplished by factoring out the
+ 
+k1b
+m1m2
+ 
+, so it is a multiplier in front of
+the fraction.
+2.3.2.1 MATLAB Example: Transfer Function for the Car Suspension
+MATLAB is well equipped to handle systems described by transfer functions.
+Many of the commands we will use here are part of the Control
+Systems Toolbox.
+To represent the car suspension transfer function, we use (2.34) as
+shown in the code below.
+% suspension_system_tf.m
+close all
+clear all
+% Define the model parameters
+m1 . 70; % kg
+m2 . 350; % kg
+
+
+k1 . 176000; % N/m
+k2 . 27000; % N/m
+b . 2500; % Ns/m
+% Define the transfer function
+num . (k1*b/(m1*m2))*[1 k2/b];
+den . [1, (b/m1.b/m2), (k2/m2.(k1.k2)/m1), b*k1/(m1*m2), k1*k2/
+(m1*m2)];
+sys_tf . tf(num,den)
+% Plot the step response
+step(sys_tf)
+This code shows the basics of how to represent the system. First the
+constants are defined using the same values as in MATLAB Example 2.2.1.1.
+After the constants are defined, the system is created using the tf
+command. To use this command, we define the numerator and denominator
+of the transfer function according to the coefficients of the polynomials
+in s and store them in two different variables, num and den. These
+coefficients are simply stored in a row vector and separated by commas
+(separation by a space would also work). Notice that the num variable has a
+multiplier in front because of the form of (2.34). After the numerator and
+denominator are defined, these variables are used as parameters in the tf
+command. Because this line does not end with a semicolon, the result is
+returned to the command window as shown below.
+sys_tf .
+1.796e04 s . 1.94e05
+———————————————————————————————————————————————
+s^4 . 42.86 s^3 . 2977 s^2 . 1.796e04 s . 1.94e05
+Continuous-time transfer function.
+Checking the result is always a good idea to make sure the coefficients
+were entered correctly. One common source of error is to leave out
+coefficients. For example, s2. 3 needs to be entered as [1, 0, 3].
+The step command produces a plot showing the unit step response for the
+system. The default for this command is to set the systeminput to a unit step as
+shown in Figure 2.25.The resulting systemoutput plot is shown in Figure 2.26.
+The dotted line in the figure indicates the steady-state value for the output.
+
+
+This step response is almost identical to the one in MATLAB Example
+2.2.1.1 except for the scaling and time delay. In the previous example, we set
+the input r(t) to a step of height 0.1, not 1, and it transitioned from 0 to 0.1
+after 1 s. If we want to replicate that input, we can use the lsim command to
+plot the system response to arbitrary inputs. To do this, we define a delayed
+unit step input and then use it as a parameter in the command as follows.
+
+
+T . 0.01;
+t_end . 3.5;
+r_start . 1;
+scale_factor . 0.1;
+t . [0:T:t_end];
+r . [zeros(1,1.r_start/T),scale_factor*ones(1,(t_end-r_start)/T)];
+lsim(sys_tf,r,t)
+In the above code, the input r is defined from 0 to 3.5 s with the
+transition occurring at 1 s. In the lsim command, the transfer function,
+input, and time vector must be specified. The resulting plot is shown in
+Figure 2.27. The input is added to the plot by default as a light gray line.
+There is an alternative, and possibly simpler, way to create a transfer
+function in MATLAB shown below.
+% Define the transfer function
+s . tf('s');
+sys_tf . (k1*b/(m1*m2))*(s . k2/b)/(s^4 . (b/m1.b/m2)*s^3 .
+(k2/m2.(k1.k2)/m1)*s^2 . b*k1/(m1*m2)*s . k1*k2/(m1*m2))
+
+
+Using this method, one enters the transfer function directly as shown in
+(2.34) rather than as coefficients in the numerator and denominator. It is
+possibly simpler because it is just like the transfer function expression, but it
+can be much longer, and the chances are greater of making a mistake while
+typing it into the code. Both methods produce the same result and it’s the
+user’s discretion to choose the more suitable one.
+As a second example, we give a simple model of the human balance
+system as a single link inverted pendulum.3 This system incorporates
+feedback and we will show how MATLAB can help with the transfer
+function derivation.
+The single link inverted pendulum is shown in Figure 2.28. In the
+figure, the person is represented by a single pendulum rotating about the
+ankles. There are three angles associated with the system: qBS, the body’s
+angle in space; qFS, the foot’s angle in space; and qBF, the foot’s angle
+with respect to the body. Additionally, the person may apply torque T
+about the ankle to control balance. For this simple model, we assume the
+mass m is concentrated at the center of mass located distance l above
+the feet.
+The differential equation describing the motion of the system is
+mgl sin qBS . T . J€qBS (2.35)
+
+
+Because this is nonlinear system, it does not have a transfer function
+representation. However, using the linear approximation sin qBS z qBS,
+the transfer function from T to qBS is found to be4
+QBS.s.
+T.s.
+.
+1J
+s2 . mgl
+J
+(2.36)
+This transfer function describes how torque applied to the ankle affects the
+body angle. To complete the model, we have to account for how a person
+might react to changing foot angle qFS. To accomplish this effect, the systemis
+modeled using feedback as shown in Figure 2.29. This model assumes only
+proprioception is used for feedback (i.e., joint angles are used to determine
+body position with respect to itself) and ignores the vestibular and vision systems.
+The input to the system is the foot’s angle in space, which represents the
+slope on which the person is standing. The output is the body’s angle in space,
+which is controlled by applying torque to the ankle. The difference between
+these two angles is qBF, which is sensed using proprioception.
+Researchers use this model to help understand the human balance
+system. One of the key features that they had to identify was the form of
+the controller. They have found that a proportional-integral (PI) controller
+works when fitting the model to the data. A PI controller has a transfer
+function C(s) given by
+C.s. . kP . kI
+s
+(2.37)
+where kP and kI are called the proportional gain and integral gain, respectively.
+These are constants that must be chosen to match the model to the data.
+Also note the left block in the diagramwhose transfer function is e std. This
+block represents a delay time of td in the systemcaused by the person’s reaction
+
+
+time. As discussed earlier, a signal delayed by td in the time domain corresponds
+tomultiplication by e std when using Laplace transforms.Researchersmust also
+determine td to make the model accurately fit their collected data.
+Using properties of feedback loops, the overall transfer function of the
+system from qFS to qBS is found to be
+QBS
+QFS
+.
+e std
+ 
+kP . kI
+s
+ 
+ 
+1J
+s2 . mgl
+J
+ 
+1 . e std
+ 
+kP . kI
+s
+ 
+ 
+1J
+s2 . mgl
+J
+  (2.38)
+2.3.2.2 MATLAB Example: Transfer Function
+of the Human Balance System
+We can use MATLAB to represent and simulate the human balance system
+shown in Figure 2.29. In this example, we use a new tool to help with
+some of the work.
+So far we have seen two ways to enter transfer functions. One way is to
+enter the transfer function as a numerator and denominator. In this case, it
+would mean simplifying (2.38) to a simple fraction with both the numerator
+and denominator expressed as polynomials of s and creating two vectors in
+MATLAB to hold the polynomial coefficients. However, these coefficients
+cannot be found because of the delay component e std . The other way is to
+define s using the tf command and then enter the actual polynomials and
+let MATLAB do the fraction simplification. In this case, we need to do less
+work than the first method because we are required to know that the
+feedback system is of the form in (2.38) but do not need to do calculations.
+There is a third way to enter the transfer function, and this method puts
+most of the work onto MATLAB. The feedback command lets us enter the
+individual blocks, and then it does the simplification. The format of the
+command is
+feedback(M1,M2)
+where M1 and M2 show up in the system as shown in Figure 2.30. If not
+specified, it is assumed that there is negative feedback.
+One other item to discuss about the model is the delay component
+e std . Handling this block is easy when we first define s using tf. We
+simply use the MATLAB command exp to enter the mathematical
+expression.
+
+
+The code to define and simulate the system is shown below.
+% human_balance.m
+close all
+clear all
+% Define the system constants
+td . 0.01; % s
+J . 81.3; % kg m ^2
+m . 82; % kg
+g . 9.8; % m/s^2
+L . 0.996; % m
+kp . 0.5;
+ki . 0.001;
+% Define the system blocks
+s . tf('s');
+D . exp(-s*td);
+C . kp . ki/s;
+G . (1/J)/(s^2.m*g*L/J);
+sys . feedback(D*C*G,1)
+In the code, first the constants of the system are defined. Some typical
+values are used here5 Next the individual blocks are defined using s as
+the variable, which allows us to type in the mathematical expressions
+rather than just polynomial coefficients. Finally, the system is defined
+using the feedback command with the series connections of the three
+
+
+blocks D, C, and G in place of M1. The result of this command is shown
+below.
+sys .
+a .
+x1 x2 x3
+x1 0 -2.463 -3.075e-06
+x2 4 0 0
+x3 0 1 0
+b .
+u1
+x1 0.03125
+x2 0
+x3 0
+c .
+x1 x2 x3
+y1 0 0.0492 9.84e-05
+d .
+u1
+y1 0
+(values computed with all internal delays set to zero)
+Internal delays (seconds): 0.01
+Continuous-time state space model.
+Notice that MATLAB gives us something that looks different from
+what we have seen in previous examples. Rather than return a transfer
+function, it represents the system with four matrices a, b, c, d. This is
+a form of state-space representation, and we will discuss this topic in
+Section 2.4.
+2.3.2.3 Systems with Nonzero Initial Conditions
+Consider the simple circuit shown in Figure 2.31. Assume the capacitor is
+initially charged to some nonzero voltage vc(0).
+Applying Ohm’s law to the resistor gives
+i.t. . vin.t.   vc.t.
+R
+(2.39)
+
+
+and taking the Laplace transform of (2.39) results in
+I.s. . Vin.s.   Vc.s.
+R
+(2.40)
+Furthermore, the relationship between current and voltage in a
+capacitor is
+i.t. . C
+dvc.t.
+dt
+(2.41)
+Taking the Laplace transform of (2.41) results in the initial condition on
+the capacitor appearing
+I.s. . C.sVc.s.   vc.0.. (2.42)
+Trying to obtain the transfer function Vc.s.
+Vin.s. is hopeless. Substituting
+(2.42) into (2.40) and simplifying yields
+Vc.s. .
+1
+RC
+s . 1
+RC
+Vin.s.   1
+s . 1
+RC
+vc.0. (2.43)
+and shows that the output Vc is a function of both the input Vin and the
+initial condition vc(0). However, if we assume zero initial conditions, the
+transfer function becomes
+Vc.s.
+Vin.s.
+.
+1
+RC
+s . 1
+RC
+(2.44)
+What if you want to plot the time response of the RC circuit in
+MATLAB for nonzero initial conditions? Fortunately, there is a simple
+means to accomplish this using the system’s state-space realization. In
+
+
+Section 2.4, we will show how to carry this out in MATLAB and give a
+detailed discussion of state-space models.
+2.3.3 z-Transforms for Discrete-Time Systems
+The concepts of z-transforms are generally less exposed to mechanical
+engineers than they are to electrical engineers, who get a heavy dose of them
+in required undergraduate courses in signals and systems theory, which are
+then followed by courses in signal processing, communications, and control
+systems. In particular, digital signal processing (DSP), digital communication
+systems, and digital control systems rely heavily on z-transforms. Mechanical
+engineers are less likely to study z-transforms in their undergraduate coursework,
+but may encounter them in a course on digital control systems or
+mathematically oriented courses at the graduate level.
+The z-transform is to discrete-time systems and difference equations
+what Laplace transforms are to continuous-time systems and differential
+equations. Many of the same properties apply that we saw in discussing
+Laplace transforms. First we will start with the definition of the z-transform
+of a discrete-time signal.
+The definition of a z-transform of a discrete-time signal x[n] is
+X.z. .
+XN
+n. N
+x.n z n (2.45)
+where z is a complex number.
+The inverse z-transform is given by
+x.n  . 1
+2pj
+I
+C
+X.z.zn 1dz (2.46)
+where C is a counterclockwise path that encloses the origin and the region
+of convergence.
+Region of convergence is defined as the set of points in the complex z
+plane for which the z-transform in (2.45) converges. Notice that (2.45) is an
+infinite sum, so it will only give a finite value under certain conditions for a
+given discrete-time signal x[z]. For the z-transform to be complete, the
+region of convergence must be specified along with X(z).
+In practice, as with Laplace transforms, it is more common to use tables
+than the definitions in (2.45) and (2.46). However, the definition of the
+z-transform is a bit easier to use than the Laplace definition because one can
+consider multiplication by z-n to be a delay operator, and difference
+
+
+equations used to describe a discrete-time system can often be expressed as a
+linear combination of delays.
+Let us look at an example of a signal and its z-transform to demonstrate
+these ideas. Suppose x[n] is given by
+x.n  .
+ 
+e n; n   0
+0; n < 0
+(2.47)
+Using (2.45), the z-transform is
+X.z. .
+XN
+n.0
+e nz n (2.48)
+Note that the lower limit of the summation is zero because x[n] . 0
+when n is less than 0. Simplifying the expression gives
+X.z. .
+PN
+n.0
+.ez. n
+.
+PN
+n.0
+ 
+.ez. 1
+ n
+. 1
+1   .ez. 1
+(2.49)
+The last step was obtained using the relationship
+P
+Nn
+.0 xn . 1
+1   x. This
+relationship only holds if jxj is less than 1; otherwise, the series does not
+converge. This restriction leads us to the region of convergence (ROC). In
+the above example, the ROC is
+
+.ez. 1
+
+< 1 (2.50)
+or
+jzj > e 1 (2.51)
+Because z is a complex number, this last inequality says that z must lie
+outside a circle of radius e 1 for the series to converge. Graphically, the
+region of convergence is the area shown in Figure 2.32.
+Thus the complete z-transform is
+X.z. . 1
+1   .ez. 1; jzj > e 1 (2.52)
+
+
+As with Laplace transforms, we introduce notation and properties that
+will be useful to us. First is to define the notation for signals and their
+transforms. These time domain signals are represented by lower case letters
+and are shown explicitly to be functions of n. Their z-transforms are
+represented by the same letter capitalized and are functions of z.
+Table 2.3 Notation for z-Transforms
+Time Domain
+Signal z-Transform
+x.n 4X.z.
+Im(z)
+Re(z)
+e–1
+Figure 2.32 The region of convergence for z shown on the complex plane. The
+z-transform converges for values of z in the shaded region.
+Table 2.4 Important Properties of z-Transforms
+Property
+Time Domain
+Signal z-Transform
+Linearity ax1.n  . bx2.n 4aX1.z. . bX2.z.
+Time shift x.n   n0 4z n0X.z.
+
+
+Some properties of z-transforms will be particularly useful to us as we
+derive transfer functions: linearity and time shift. The notation is illustrated
+in Table 2.3. These properties are illustrated in Table 2.4.
+As a simple first example, consider the difference equation in (2.53), and
+let’s work through the process of generating its transfer function.
+x.n  . 3x.n   1  . 4x.n   2  . y.n    y.n   2  (2.53)
+becomes
+X.z. . 3z 1X.z. . 4z 2X.z. . Y.z.   z 2Y.z. (2.54)
+and the transfer function Y.z.
+X.z. is
+Y.z.
+X.z.
+. 1 . 3z 1 . 4z 2
+1   z 2 (2.55)
+or equivalently
+Y.z.
+X.z.
+. z2 . 3z . 4
+z2   1
+(2.56)
+These two forms of transfer function are used in practice, depending on
+the field of study. In DSP, it is common to express transfer functions for
+discrete-time systems in terms of negative powers of z as in (2.55) because
+of their association with delay operations. For control systems, positive
+powers of z are typically used. As we will see in the MATLAB example
+later in this section, either convention may be used as long as the user
+specifies which he or she is following.
+The most common discrete-time system that we will see in studying
+mechanical systems comes about through sampling a process for computer
+control. As an example, we will work through a thermostat system in detail
+and see the effects of this sampling on the model.
+Consider a computer-controlled heating system represented by the
+block diagram in Figure 2.33. In this situation, the computer samples the
+
+
+room temperature at discrete intervals using an analog-to-digital converter
+(ADC). Note that the room temperature is denoted by TI(t) because it is a
+continuous-time signal. The sampled version of the room temperature
+coming out of the ADC is TI[n], a discrete-time signal. Similarly,
+the computer outputs a discrete-time signal qh[n], which goes through
+a digital-to-analog converter (DAC) to produce a continuous-time
+signal qh(t).
+For our modeling purposes, we assume the ADC has infinite resolution.
+It simply samples the continuous-time signal and outputs the exact value of
+the signal at integer multiples of the sampling time ts. The value of the input
+signal is captured at each sampling instant so that the relationship between
+the two signals is
+TI .n  . TI.nts. (2.57)
+This relationship between the signals is shown graphically in
+Figure 2.34. Figure 2.35 shows how this relationship can be modeled in a
+block diagram as a switch that closes momentarily every ts seconds. Note
+that this model is an idealized version of how the ADC behaves, and it
+ignores quantization error. In an actual ADC, the sampled value is
+
+
+represented by a finite number of bits. For example, in 12-bit sampling, the
+value of the signal is quantized into one of 212 . 4096 values.
+The DAC is modeled differently from an ADC. Typically a DAC is
+represented using what is called a zero-order hold (ZOH) equivalent
+model. In this case, the input to a DAC is a discrete-time signal, and the
+output is the input value held constant for the time between samples. The
+result of the conversion is a piecewise constant signal as shown in
+Figure 2.36.
+If we consider the input and output to be continuous-time signals, then
+we can derive the transfer function of the DAC in terms of the Laplace
+transforms of the input and output signals. For example, if the input is a unit
+impulse (typically denoted by d(t)), the output is a rectangular pulse whose
+width is ts, which can be expressed as the difference between a unit
+step (denoted by u(t)) and a delayed unit step (denoted by u(t   ts)).
+
+
+See Figure 2.37. Using the fact that the Laplace transforms of d(t), u(t), and
+u(t   ts) are 1, 1s
+, and 1s
+e tss respectively, the transfer function of the DAC is
+Y.s.
+X.s.
+. 1
+s
+.1   e tss. (2.58)
+Often it is convenient to combine the DAC with the continuous-time
+plant that follows it into a single transfer function using the z-transform.
+We will do this in the context of the temperature control system introduced
+in this section. First, we derive the transfer function for the
+continuous element in the system. Consider a room as shown in
+Figure 2.38 that has perfect thermal insulation everywhere except for one
+wall.6 We can derive the room’s dynamical model using the governing
+
+
+relationships for heat flow, temperature, and temperature difference. The
+first relationship is
+q . 1
+R
+.T1   T2. (2.59)
+where q is the heat flow through the material, R is its thermal resistance,
+and T1 and T2 are the temperatures on either side of the material. The second
+relationship is
+T_ . 1
+C
+q (2.60)
+where T is the temperature of an object, C is its thermal capacity, and q is
+the total heat flow into the object.
+Applying (2.59) and (2.60) to the room, we get
+T_ I . 1
+C
+.q1 . qh. (2.61)
+and
+q1 . 1
+R
+.TO   TI . (2.62)
+where TI is the room temperature, TO is the outside temperature, C is the
+thermal capacity of the room, R is the thermal resistance of the uninsulated
+wall, q1 is the heat flow into the room through the uninsulated wall, and
+qh is the heat source in the room.
+Substituting (2.62) into (2.61), the model for the room is
+T_ I . 1
+C
+ 
+1
+R
+.TO   TI. . qh
+ 
+(2.63)
+Simplifying the model to contain only one variable, let Td denote the
+difference between the inside and outside temperatures.
+Td . TI   TO (2.64)
+Then
+T_ d . T_ I   T_ O
+. T_ I
+(2.65)
+The last simplification can be made if we assume the outside temperature
+is slowly time varying compared with the inside temperature
+
+
+(T_ O z 0). Substituting (2.64) and (2.65) into (2.63) gives a modified
+model of the room.
+T_ d .  Td
+RC
+. qh
+C
+(2.66)
+Taking the Laplace transform (because we are still dealing with a
+continuous-time system at this point) and rearranging gives the transfer
+function for the room, the continuous plant in the heating system. Denote
+this transfer function by Gp(s).
+Gp.s. . Td.s.
+Qh.s.
+.
+1C
+s . 1
+RC
+(2.67)
+Now let us combine this continuous plant with the DAC and ADC to
+give us a ZOH model of the plant as shown in Figure 2.39.
+Working through the block diagram in Figure 2.39, we will derive the
+transfer function for the discrete-time system from qh[n] to Td[n]. Let the
+input be an impulse.
+qn.n  . d.n  (2.68)
+Then taking the z-transform gives
+Qh.z. . 1 (2.69)
+Given the impulse input, the output of the DAC is
+qh.t. . u.t.   u.t   ts. (2.70)
+where
+u.t. .
+ 
+1; t > 0
+0; t < 0
+(2.71)
+
+
+With u(t)   u(t   ts) as the input to the plant, the output is the step
+response given by Td(t) . w(t)   w(t   ts), where
+w.t. . L  1
+ 
+Gp.s.
+s
+ 
+(2.72)
+and
+w.t   ts. . L  1
+ 
+e tssGp.s.
+s
+ 
+(2.73)
+In these expressions, L -1 denotes the inverse Laplace transform. Then
+the output of the ADC is
+Td.nts. . w.nts.   w.nts   ts.
+. w.nts.   w..n   1.ts.
+. w.n    w.n   1 
+(2.74)
+and the z-transform of the output is
+Td.z. . W.z.   z 1W.z.
+. .1   z 1.W.z.
+. .1   z 1.Zfw.n g
+. .1   z 1.Zfw.nts.g
+. .1   z 1.Z
+ 
+L  1
+ 
+Gp.s.
+s
+  
+(2.75)
+In these expressions, Z{$} denotes the z-transform. The transfer function
+of the DAC, continuous plant, ADC series combination Geq(z) is then
+Geq.z. . Td.z.
+Qh.z.
+. .1   z 1.Z
+ 
+L  1
+ 
+Gp.s.
+s
+  
+(2.76)
+We will now substitute the room model into (2.76).
+Gp.s.
+s
+.
+1C
+s
+ 
+s . 1
+RC
+  (2.77)
+Then taking the inverse Laplace transform (obtained from a table of
+Laplace transforms)
+L  1
+ 
+Gp.s.
+s
+ 
+. R
+ 
+1   e t=RC
+ 
+(2.78)
+
+
+and now taking the z-transform of the sampled version of this signal gives
+Z
+ 
+L  1
+ 
+Gp.s.
+s
+  
+. R
+ 
+z
+z   1
+  z
+z   e ts=RC
+ 
+. R
+ 
+1   e ts=RC
+ 
+z
+.z   1.
+ 
+z   e ts=RC
+ 
+. R
+1   e ts=RC
+.1   z 1.
+ 
+z   e ts=RC
+  (2.79)
+where this expression uses (2.49) and
+Z.1. .
+PN
+n.0
+z n
+. 1
+1   z 1
+. z
+z   1
+(2.80)
+Therefore, the ZOH equivalent transfer function becomes
+Geq.z. . .1   z 1.R
+1   e ts=RC
+.1   z 1.
+ 
+z   e ts=RC
+  . R
+1   e ts=RC
+z   e ts=RC
+!
+(2.81)
+or in terms of negative powers of z,
+Geq.z. . R
+0
+B@
+ 
+1   e ts=RC
+ 
+z 1
+1   e ts=RCz 1
+1
+CA
+(2.82)
+It is worth noting here that an assumption has beenmade: the same sample
+rate ts is used for both the analog-to-digital and digital-to-analog conversion so
+that the whole system is in sync. It is important to know this sampling rate
+because it greatly affects the systemperformance. Also, in this sampling process,
+information between samples is lost and cannot be recovered. We will see the
+effects of the sampling rate in the following MATLAB example.
+2.3.3.1 MATLAB Example: Model of a Computer-Controlled
+Heating System
+We will now simulate the step response of the system in (2.81). But before
+simulating in MATLAB, we need to establish numbers to use for R and C,
+and this requires a few steps.
+
+
+First, there are some values that we will assume for this situation: The
+MATLAB code shown below provides the step response for both the
+continuous-time and discrete-time transfer functions of the system for side
+by side comparison.
+% heating.m
+close all
+clear all
+% Define constants for the system
+ts . 10; % sampling interval in seconds
+R . 0.0242; % Ks/J
+C . 44100; % J/K
+a . exp(-ts/(R*C));
+% Transfer function of continuous system
+num . 1/C;
+den . [1, 1/(R*C)];
+Gp . tf(num,den)
+subplot(2,1,1)
+step(Gp,7000)
+title('Step Response of Continuous System')
+% Transfer function of discrete system
+num . R*(1-a);
+den . [1, -a];
+Geq . tf(num,den,ts)
+subplot(2,1,2)
+step(Geq,7000)
+title(['Step Response of Discrete System with Sampling Time of
+',num2str(ts),' seconds'])
+In the first part of the code, the constants in the system R and C are
+defined as those calculated in Table 2.5. The sampling time ts is initially set
+to 10 s, and the variable a is defined to simplify entering the transfer function.
+The next section of code defines the continuous transfer function from
+(2.67). The method used here is exactly that which we have seen in Section
+2.3.2.1.
+The last section of code defines the discrete transfer function from (2.81).
+Here we see the tf command being used similar to the continuous case. The
+numerator and denominator of the transfer function must be defined by the
+coefficients of z in decreasing powers. In this case, positive powers of z
+
+
+are used, and this is the default setting for MATLAB. The only difference
+between the definitions of the continuous-time and discrete-time systems is
+that the user must specify the sampling time.
+Geq . tf(num,den,ts)
+The plot resulting from this code is shown in Figure 2.40.
+What do these plots tell us? Remembering back to the transfer functions
+in (2.67) and (2.76), they are defined as Td.s.
+Qh.s. and Td.z.
+Qh.z., respectively. That is,
+temperature over heat in both cases. The step command assumes the input
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
