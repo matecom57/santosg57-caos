@@ -18,7 +18,5 @@ Contents
 
 .. toctree::
 
-   usage
-   api
-   Caos/NONLINEAR_DYNAMICS_AND_CHAOS_Steven/c01
+   Mathematical_Biology_I_An_Introduction_3E/index2
 
