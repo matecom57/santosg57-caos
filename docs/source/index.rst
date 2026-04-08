@@ -24,4 +24,5 @@ Contents
    An_Introduction_Dynamical_Systems_and_Chaos/index2
    An_Exploration_Dynamical_Systems_Chaos_Argyris/index2
    An_Introduction_to_Complex_Systems/index2
+   Applications_Dynam_Syst_Biol_Medicine_Trachette/index2
 
