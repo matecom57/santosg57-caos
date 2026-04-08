@@ -1,0 +1,587 @@
+c03
+====
+
+An_Introduction_to_Complex_Systems_2E_c03
+
+pag 28
+
+Chapter 3
+Systems Theory
+There are many very concrete topics of study in engineering and computer science,
+such as Ohm’s law in circuit theory or Newton’s laws in basic dynamics, which allow
+the subject to be first examined from a small, narrow context.
+We do not have this luxury. A topic such as global warming, from Chapter 2,
+is an inherently large, interconnected problem, as are topics such as urban sprawl,
+poverty, habitat destruction, and energy. For example the latter issue of fossil fuels
+and global energy limitations is truly interdisciplinary, requiring the understanding,
+in my opinion, of many fields:
+Statistics
+Data Analysis
+Environment
+Natural Resources
+Chemical Engineering
+Ethanol, Biodiesel
+Physics
+Thermodynamics
+Electrical Engineering
+Energy Conversion
+Geophysics
+Oil / Gas Reserves
+Agriculture
+Food and Energy
+Recent History
+Oil, Foreign Policy
+Ancient History
+Fall of Civilizations
+Sociology
+Society and Change
+Psychology
+Human Behaviour
+Political science
+Governments and Change
+Demographics
+Populations, Pensions
+Economics
+Prices, Shortages
+Finance
+Debt, Fiat money
+This cannot be studied as a set of small, isolated problems, since the interconnections
+are what make the problem. In order to understand interconnected systems, we
+have to understand something regarding systems theory.
+
+
+3.1 Systems and Boundaries
+A system is most fundamentally characterized by the manner in which it interacts
+with its surroundings:
+These basic systems are shown graphically in Figure 3.1. A quick illustration
+should make the definitions clear:
+Open: Most human systems are open, since virtually all human societies and companies
+are based around trade and the exchange of goods.
+Closed: The earth as a whole is very nearly closed, since the inputs to the earth are
+dominated by solar energy (with a tiny amount of mass transfer frommeteors), and
+the outputs from the earth are dominated by thermal energy (with a small amount
+of mass from the upper atmosphere and the occasional space probe).
+Isolated: There are few, if any, isolated natural systems. Even a black hole is
+not isolated; to the contrary, it is quite open, since there can be substantial mass
+transfer into it. A well insulated, sealed test-tube in the lab would be close to being
+an isolated system.
+Every system has some boundary or envelope through which it interacts with the
+rest of the world. A significant challenge, then, is defining this boundary: What part
+of the greater system is placed inside the boundary, and modelled explicitly, and what
+is outside, ignored or modelled implicitly via the boundary?
+Interestingly, there is a tradeoff, illustrated in Figure 3.2, between the complexity
+of the represented system and the complexity of the boundary. This makes sense:
+
+
+• The more of the system I move outside of the boundary, the simpler the remaining
+system, but the more complex the interactions through the boundary with the other
+parts of the system.
+• The more of the system I move inside of the boundary, the more complex a system
+I have to model, but the simpler the interactions through the boundary.
+This is perhaps simpler to illustrate with an example:
+The Human Body is an enormously complex system, almost impossible to understand
+given the many organs and subsystems (circulatory, nervous etc.), however
+the envelope around the body is relatively simple: food, water, waste, air etc.
+A Cell is relatively simple, in contrast to the whole body, and a great many cell
+functions are understood in detail. However a cell has, at its boundary, a tremendously
+complex envelope of proteins, hormones, other molecules and physical
+forces induced by the body within which it lives.
+
+
+Although there are clearly many possible ways of representing and modelling
+boundary conditions, very roughly there are three groupings, illustrated in Figure 3.3:
+No Boundary: Isolated systems, with no interactions modelled outside of the
+boundary.
+Static Boundary: Systems having infinite sources and sinks, meaning that the
+boundary conditions can simply be held fixed and are not influenced by the system
+in any way.
+Dynamic Boundary: Systems having finite sources and sinks, external systems
+which can be affected by the modelled system.
+In most circumstances the boundary between societal and environmental systems
+should fall into the third category, interacting with and affecting each other. However,
+as discussed in Example 3.2, given a societal system we often represent external
+environmental systems as being in one of the first two categories: either dismissed
+entirely (a so-called externality), or assumed to be fixed and immune from human
+influence, such as assuming the ocean to be an infinite carbon sink.
+The interaction between a system and its boundaries affects whether the system
+is able to perpetuate its activity. That is, a system is sustainable (in steady-state) if,
+for a given unchanging definition of system boundary, the system is able to continue
+its activity indefinitely.
+
+
+3.2 Systems and Thermodynamics
+The ability of a system to do something, to be dynamic, relies on some sort of
+input–output gradient or difference: temperature, pressure, height, chemical etc. A
+turbine relies on a high–low pressure gradient, the human body relies on a food–
+waste chemical gradient, even a photovoltaic solar panel relies on an thermal-like
+gradient between the effective temperature of incoming sunlight (6000K) and that
+of the local environment (300K).
+The basic thermodynamic system in Figure 3.4 shows input energy QH, waste
+heat QC, and work W. By conservation of energy, we know that
+QH = W + QC. (3.1)
+What interests us is to maximize W for a given amount of input energy QH. Thermodynamics
+places an upper limit on the efficiency of any system:
+W ≤ Wopt = QH
+ 
+1 − TC
+TH
+ 
+(3.2)
+however this is an upper limit; it is certainly possible for W to be significantly
+below Wopt . We observe from (3.2) that a steeper gradient TH/TC leads to a more
+efficient system. It is for this reason that one needs to be careful in proposing schemes
+to harness “waste” energy: any additional system introduced on the “Cold” side
+requires a temperature gradient of its own, raising T.C and reducing the efficiency of
+the original system, as shown in the right half of Figure 3.4. That being said, there
+are certainly many examples of successful waste heat recovery and co-generation
+where the waste heat is used directly, to heat a building, rather than to run a machine.
+Because of the limit to efficiency, it follows that
+Total input energy QH  = Total usable energy W
+leading us to a definition for entropy:
+Entropy: A measure of the energy not available for doing work.
+In general, entropy is also a measure of energy dispersal: greater dispersal corresponds
+to lower gradients, corresponding to lower efficiency and less work. It is
+essential to understand this dispersal effect; for example, it is widely quoted that
+Solar Energy Arriving on Earth 1017W,
+Total Human Energy Use 1013W.
+It is claimed, therefore, that there is no energy shortage, only a shortage of political
+will to invest in solar energy.However the 1017Ware exceptionally dilute (effectively
+a very low TH), spread over the entire planet (including the oceans). To be useful,
+this energy needs to be collected / concentrated (high TH) in some form:
+
+
+Solar-Thermal energy Mirrors
+Solar-Electric energy Conversion, transmission
+Solar-Agricultural energy Harvest, transport, processing
+All of these require infrastructure and the investment of material and energy
+resources, a topic further discussed in Example 3.5. A dilute energy source is simply
+not equivalent to a concentrated one, even though both represent the same amount
+of energy.
+Although energy is always conserved, clearly useful energy is not.1 So two cups
+of water, one hot and one cold, present a temperature gradient that could perform
+work, an ability which is lost if the cups are mixed:
+TH TC       
+Same
+Energy
+Tmid       
+W > 0 W = 0 ΔS > 0
+(3.3)
+Energy is conserved, but the ability to perform work is not, therefore there is a corresponding
+increase in entropy S. An equivalent illustration can be offered with a
+pressure gradient:
+PH PL       
+Same
+Energy
+PMid PMid       
+W > 0 W = 0 ΔS > 0
+(3.4)
+It is clear that gradients can spontaneously disappear, by mixing, but cannot spontaneously
+appear.2 From this observation follows the second law of thermodynamics,
+that entropy cannot decrease in an isolated system.
+However, as is made clear in Example 3.3, although entropy cannot decrease in
+an isolated system, it can most certainly decrease in an open (crystallization) and
+1 The ambiguity in definitions of useful or available energy has led to a proliferation of concepts:
+energy, free-energy, embodied-energy, entropy, emergy, exergy etc. I find the discussion clearer
+when limited to energy and entropy, however the reader should be aware that these other terms are
+widely used in the systems/energy literature.
+2 There are phenomena such as Rogue Waves in the ocean and Shock Waves from supersonic flow,
+in which gradients do appear, however these are driven effects, induced by an energy input.
+
+
+closed (fridge) systems, since open and closed systems allow energy (and entropy!)
+to cross their boundaries.
+As shown in Figure 3.5, non-isolated systems can import low-entropy inputs …
+high gradients (very hot and very cold), fuel, mechanical work, electricity
+and subsequently export high-entropy outputs …
+low gradients (warm thermal energy), burnt fuel, smoke, water vapour.
+So although a gradient cannot spontaneously appear, a refrigerator, for example,
+does indeed create a thermal gradient (cool fridge in a warm room). However to
+create this gradient requires it to consume an even greater gradient (energy) from
+somewhere else, and that energy (electricity) must have consumed an ever greater
+gradient (burning wood or coal) somewhere else, and so on.
+Furthermore the gradient metaphor generalizes to non-energetic contexts: to clean
+your hands (establishing a cleanliness gradient) requires you to consume an existing
+gradient, such as purified tap water or a clean towel; much more abstractly, entropy
+also applies to information, such as the computation or re-writing of a binary digit,
+known as Landauer’s principle. Very broadly, we have the following summary perspective
+on entropy:
+Low Entropy High Entropy
+Life
+Order
+Construction
+Death
+Disorder
+Destruction
+Finally, not only do gradients not spontaneously appear, but nature exerts a force
+towards equilibrium and randomness:wood rots,metal rusts, stone weathers, animals
+die, things break. This tendency towards equilibrium consumes any kind of gradient,
+whether temperature (coffee cools, ice cream melts), pressure, chemical, cleanliness
+etc.
+However in order to do something, any form of work, a system cannot be in
+thermodynamic equilibrium. Life and all useful systems are therefore a striving
+towards maintaining gradients, holding off equilibrium, where
+˙S
+System(t) = ˙SInput(t) − ˙SOutput(t) + ˙SNature(t) (3.5)
+So to maintain a given system complexity (˙SSystem(t) ≤ 0) we need sufficiently
+low-entropy inputs (food, liquid water) and sufficiently high-entropy outputs (heat,
+water vapour, waste) to counter the natural push (˙SNature(t) > 0) towards equilibrium
+(death).
+So for a system to be in steady-state,
+˙S
+System(t) = 0
+
+
+meaning that sufficient entropy (and associated energy) flows must be present; that
+is, a system must live within the means of its energy budget to remain sustainable.
+A system can temporarily exceed its energy budget (running up a balance on its
+credit card, so to speak), but will eventually be forced to re-adjust, as discussed in
+Example 3.4.
+3.3 Systems of Systems
+In principle a single system could contain many internal pieces, and therefore could
+be arbitrarily complex.
+However it is usually simpler to think of a “system” as being uniform or selfcontained,
+with a natural boundary or envelope. In this case several separate, but
+interacting, systems would be referred to as a “system of systems,” as summarized
+in Table 3.1.
+The heterogeneity of Systems of Systems make them a significant challenge, so
+we need to maintain a certain level of humility in attempting to model or analyze
+such systems. Nevertheless Systems of Systems are all around us,
+Creek or Stream—plankton, fish, plants, crustaceans, birds …
+Meadow—perennials, annuals, worms, insects, microbes, …
+Human Body—organs, blood, immune system, bacteria, …
+Automobile—drive train, suspension, climate control, lighting, …
+Major City—buildings, transportation, businesses, schools, …
+so at the very least we want to open our eyes to their presence.
+In most cases, Systems of Systems are nonlinear, complex systems which will be
+further examined in Chapter 10, particularly in Section 10.4.
+
+
+Case Study 3: Nutrient Flows, Irrigation, and Desertification
+Suppose I have an apple tree. Thinking about the
+system envelope around the tree, can I keep taking
+apples indefinitely? At some point, don’t I have to
+put something back?
+The question of nutrient flows is an important
+one, and one which can be examined through the
+context of systems concepts.
+There are a great many nutrients present in the
+natural world, and a certain balance is required to
+ensure optimum plant (and later human) health. We
+will simplify the discussion by focusing on those six nutrientswhich overwhelmingly
+dominate plant mass. Of these six, three are readily available from the air, and three
+present a challenge:
+Mineral Source Mineral Natural Source Modern Source
+C Air N Lighting, Bacteria, Animals Natural Gas
+H Air / Water P Soil weathering, Volcanoes Mining
+O Air / Water K Soil weathering, Volcanoes Mining (Potash)
+      
+Easy Minerals
+      
+Difficult Minerals
+The minerals NPK3 are frequently growth-limiting, dominate many aspects of
+agricultural policy, and play a central role in questions of the sustainability of global
+food production.
+To be sure, the behaviour of nutrient flows in/out of a natural system will depend
+on time scale:
+Short Term (< 1000 Years)—Most natural systems are nutrient–closed,
+Long Term (to 109 Years)—Most natural systems are nutrient–open.
+Indeed, in the long term, geological processes such as ice ages, volcanoes, erosion,
+and continental drift lead to large-scale reallocations of minerals.
+Here we are considering shorter, human–societal time scales. Most human influences
+on the natural world take a closed nutrient cycle and open it, as shown in
+Figure 3.6. Arguably, historical human influences did not so much open a given system
+as widen its envelope to that of a farm or town, however the advent of modern
+transport technology has allowed the bulk transport of materials world-wide.
+3 Nitrogen, Phosphorus, and Potassium. Nitrogen is, of course, highly plentiful in the atmosphere,
+but in very stable molecular form. When we talk about agricultural nitrogen we mean fixed or
+reactive nitrogen, normally in the form of ammonium.
+
+Because a European /Western perspective or attitude dominates much of modern
+agriculture, it is illuminating to observe the system-level differences in nutrients
+between temperate and tropical soils, discussed in Table 3.2. Tropical forests, with
+prodigious growth rates, gave Europeans the impression of a robust ecosystem that
+would support heavy agricultural harvests. However the robustness is deceiving:
+the majority of the system nutrients are locked up in the living matter, so opening
+the system and exporting a harvest led to a significant loss of nutrients which are
+only slowly replenished. Tropical nutrient replenishment is primarily via atmospheric
+deposition, such as from volcanoes or, in the case of the Amazon rainforest, primarily
+as dust transport from the Sahara desert (xxx). Those tropical areas which do not
+experience significant atmospheric nutrient deposition, such as Easter Island [2, 17],
+are therefore at the highest risk of system disturbance and nutrient loss.
+Figure 3.7 shows the progression of a temperate ecosystem, from a forest state,
+through historical agriculture, to modern agriculture. In particular, it is interesting
+to observe that modern agriculture is dominated by annuals (plants which live only
+for one season), such as corn, which put all of their energy into seed production and
+therefore maximize agricultural production, but with shallow roots and high nutrient
+
+
+needs. In contrast, historical agriculture involved many more perennials (which live
+for years), which put more energy into root development and therefore are more
+limited in yield but with reduced nutrient requirements.
+Indeed, compare the root depths [19] of perennials like the Wild Rose (6m),
+Alfalfa (5m) and Horseradish (4m) to annuals such as Corn (1m), Tomato (1m), or
+Wheat (1-2m).
+A more careful examination of the system diagrams for soil reveals two further
+insights.
+First, at a small scale, Figure 3.8 shows the envelope for a parcel of soil. The
+actual pattern of flows will of course depend on whether the soil is irrigated, the
+precipitation patterns, the nature of the soil, and the type of crop. Nevertheless we
+observe inflows and outflows of a system in balance …with one exception. In many
+arid parts of the world it is common to irrigate with well water. However unlike rain,
+groundwater contains dissolved minerals and salts. When groundwater is applied
+to the soil, particularly in arid regions, most of the water is lost through the plant
+(transpiration) or directly to the air (evaporation), however the salts and minerals do
+not evaporate. Minerals such as NPK will be taken up by the plant and harvested,
+however the salts remain in the soil. Thus the soil has become a sink for salts, an
+unsustainable situation whereby increased salt concentrations ultimately kill the soil.
+Next, at a very large, societal scale, Figure 3.9 shows the worldwide agricultural
+nutrient flow. The open-ness of the system is striking: much of our food production
+is not at all in steady-state, and it is no exaggeration to suggest that our food is largely
+
+
+mined output and fossil fuels, precious minerals which we proceed to flush down the
+toilet to the ocean.
+The challenges associated with nutrient flows are not unavoidable, but the systems
+illustrated here do raise a number of important policy issues:
+• The growth of phytoplankton and algae in rivers, lakes, and oceans are normally
+P or N limited, and under normal circumstances most algae are eaten. However in
+circumstances of agricultural P orNrunoff there is an explosion of plankton growth
+and the plankton then die rather than being eaten. The decomposing plankton
+absorb oxygen, leading to huge dead zones, most notably in Lake Erie, the Gulf
+of Mexico, and the Baltic Sea.
+There has been significant progress in the reduction of phosphates in soaps and
+detergents, however the control of agricultural runoff remains a pressing issue,
+with related waterway and tilling policies.
+• Based on Figure 3.9, there are clear policy issues surrounding food sustainability
+and nutrient recycling from sewage. Similarly, Figure 3.8 raises questions regarding
+the extent and sources of irrigation.
+
+
+• Issues of nutrient leaching are not limited to tilled soil. Acid rain, in particular,
+increases nutrient leaching, thereby opening formerly-closed nutrient cycles even
+in forested / wilderness areas.
+Further Reading
+The references may be found at the end of each chapter. Also note that the
+textbook further reading page maintains updated references and links.
+Wikipedia Links—Systems theory: System, Systems theory, Systems of Systems,
+Steady state
+Wikipedia Links—Thermodynamics: Thermodynamics, Entropy, Energy,
+Landauer’s principle
+Wikipedia Links—Examples: EROEI, Environmental economics,
+Full-cost accounting, Environmental accounting, Externalities,
+Maximum power principle, Technological Singularity
+This chapter has covered a wide range of topics, so it is difficult to suggest a single
+book which discusses the subject matter in further depth. There are two excellent
+places to start:
+1. The recent book, Why Information Grows, by Hidalgo [6], which looks at thermodynamics,
+entropy, information, and complexity.
+2. The recent book, Dynamic Systems for Everyone, by Ghosh [3], which offers
+a non-technical look at the role and appearance of systems in many aspects of
+everyday life.
+In terms of books focused on individual topics, here are a variety of directions
+which the reader may wish to follow:
+• Systems: There is a highly accessible book on systems theory by Meadows [8],
+the same person who co-authored the classic Limits to Growth book [9] which
+looked at applying systems theory to human and ecological systems. Another
+classic example of defining systems and boundaries is the concept of ecological
+footprint [18], which attempts to quantify the earth resources (land, water, energy)
+as a function of lifestyle.
+• Thermodynamics: The reader will find an overwhelming selection of introductory
+and advanced textbooks, such as the book by Stowe [16].
+• Energy: A very good overview of Energy Returned on Invested is offered by
+Heinberg in [5], plus many references therein.
+• Environmental Accounting: There are several classic books, both that by Odum
+[10] and certainly Small is Beautiful by Schumacher [14]. The topic very much
+
+
+remains of current interest, for example in the more recent work of Schaltegger
+[13].
+• Civilization and Complexity: Much has been written on this subject. Probably
+the best and most engaging book is that by Wright [20], which I would highly
+recommend. The classic texts are the large and thorough works of Tainter [17]
+and Diamond [2]. A more recent book written for the general public is that of
+Homer-Dixon [7]. The extreme perspective of the technological singularity had
+quite balanced coverage in an IEEE Spectrum issue [1].
+• Soil and Nutrients: A little outside the scope of this book, but a bit of a passion
+of mine. If you’re interested, the book by Salatin [12] is quite inspiring, and the
+book by Weaver [19] from a century ago has beautiful drawings of underground
+root systems.
+Sample Problems (Partial Solutions in Appendix E)
+Problem 3.1: Short Questions
+Provide a brief explanation for each of the following:
+(a) Why are there no truly linear systems in the natural world?
+(b) Why are coal and nuclear power plants designed to run at a relatively high
+temperature?
+(c) How does the second law of thermodynamics relate to systems theory:
+(i) Define “entropy”
+(ii) Why is it possible for entropy to decrease in open systems?
+(iii) Briefly describe how energy flows and entropy relate.
+(iv) Describe one way in which the concept of entropy relates to a complex
+society or civilization.
+(d) State the “maximum power principle”. What makesmaximizing powermore
+attractive than maximizing efficiency?
+(e) How does a System of Systems differ from a regular System?
+(f) Looking at agricultural nutrients from a systems level perspective, identify
+and discuss (in a few sentences) two policy issues related to one or more of
+nitrogen / potassium / phosphorus.
+
+
+Problem 3.2: Conceptual—Thermodynamics
+I take a bag of frozen peas out of my freezer (−25 ◦C) and put them into the
+fridge (+4◦C) to thaw. By putting them into the fridge I also keep the fridge cool
+and save energy. To my disappointment, a short while later I notice the fridge
+running, even though I observe that the peas are still frozen.
+(a) Why is the fridge running when there are frozen peas in it?
+(b) How is this phenomenon related to global energy issues?
+Problem 3.3: Conceptual—Thermodynamics
+In principle, any sort of gradient can allow work to be done:
+• Height gradient
+• Pressure gradient
+• Temperature gradient
+• Chemical gradient
+Give an example of each of these and explain, very briefly (one or two sentences),
+how the gradient is used to do work.
+Problem 3.4: Conceptual—Systems
+Identify or briefly describe an example of an open system and an example of a
+(mostly) closed system for each of the following categories:
+(a) A physical / non-living system,
+(b) A natural / ecological system,
+(c) A human / social system.
+Problem 3.5: Conceptual—System Boundaries
+Select some form of energy, preferably one of the following:
+• Brazilian sugar-cane ethanol
+• American corn ethanol
+• Coal mining
+• Canadian tar sands
+• Wind power
+• Photovoltaics (solar cells)
+• Hydroelectric (water power)
+• Tidal power
+• Hydrogen
+For your chosen energy context, develop three system envelopes, of different
+size or scope, which could be used to assess the invested energy, as discussed
+in Example 3.5. For each of these three systems, you should show an explicit
+diagram or a detailed list showing what is / is not contained in the system, and
+the predominant invested and output energy flows.
+Do not attempt to actually calculate EROEI numbers. Rather, please discuss
+the pros and cons of each of your systems, where the pros and cons should relate
+to how complete the system model is, what is omitted, and the feasibility or
+practicality of computing EROEI based on such a system.
+Problem 3.6: Conceptual—System Boundaries
+Suppose we consider a university as a system, with a system envelope drawn
+around the physical campus.Drawa system diagram identifying themain energy,
+resource, and other physical flows (everything except the “flow” of people).
+Problem 3.7: Analytical—Peak Power
+For the given circuit, let
+V = 1Volt and RS = 1 .
+Define PL to be the power in load resistor
+RL . Draw a sketch of PL as a function of
+RL .
+RL
+RS
++−
+V
+Do not mathematically solve for the peak power. However on your plot, identify
+the approximate location of peak usable power, peak efficiency, and peak
+flow.
+Problem 3.8: Numerical/Computational—Population Dynamics
+Example 3.4 showed some simple illustrations of population dynamics, a topic
+to which we shall return in Example 6.1.
+The simplest possible model is that of constant reproduction rate r , such that
+the population p evolves over time t as
+˙ p(t) = rp(t) (3.9)
+To simulate this in a computer, we need to discretize time; for a time step δt, we
+can express the discrete-time analogue to (3.9) as
+p(n + 1) = p(n) + δt . r . p(n) (3.10)
+where sequence p needs to be initialized at the first time step:
+p(1) = po
+We need to ensure that we interpret any such simulation in the original time t, so
+we do not want to plot p as a function of n. Instead, in Matlab/Octave we would
+issue a plot command such as
+plot(d_t*(1:length(p)),p)
+Unless otherwise specified, use po = 1, δt = 0.1, r = 0.1:
+(a) What curve do you obtain for p?
+(b) How is the curve affected by discretization? If you use other time steps
+δt = 0.2, 0.3, do you see much of a change in p?
+(c) How is the curve affected by the reproduction rate? How does p change for
+r = 0.2, 0.3?
+Problem 3.9: Numerical/Computational—Efficiency
+From (3.2) we know the limiting thermodynamic efficiency, as a function of hot
+and cold temperatures TH, TC. Throughout this chapter we assumed TH and TC
+to be fixed, essentially like the static boundary condition of Figure 3.3. However
+what is the efficiency of finite temperature reservoirs, corresponding to the
+dynamic boundary in Figure 3.3.
+Let TH(t), TC(t) represent the hot and cold temperatures over time t.We will
+assume the heat flow at any time to be proportional to the temperature difference
+Q(t) = TH(t) − TC(t)
+Assuming perfect efficiency, the useful work that can be performed at that time
+is thus
+W(t) = Q(t)
+ 
+1 − TC(t)
+TH(t)
+ 
+leading to the differential equations
+T˙H(t) = −Q(t) T˙C(t) = Q(t) − W(t)
+As in Problem 3.8, or looking ahead to Section 8.3, numerically simulate these
+equations, given
+Time step δt = 0.01 TH(0) = 400 TC(0) = 300
+(a) If we had just mixed the two reservoirs the final temperature would have
+been (400 + 300)/2. Why is the final temperature now different?
+(b) What would the expected efficiency have been, for infinite reservoirs at temperatures
+TH = 400, TC = 300?
+(c) What is the actual efficiency in your simulation, computed as
+ 
+  W(t) dt
+Q(t) dt
+Problem 3.10: Reading—Energy Returned on Invested
+Example 3.5 discussed the concept of EROEI (energy returned on energy
+invested). Read4 Chapter 3—Net Energy (EROEI) in Searching for a Miracle
+[5].
+Comment briefly on the challenges of net energy evaluation and the challenges
+associated with ambiguities of where to assert system boundaries.
+Problem 3.11: Policy—Accounting
+Example 3.2 discussed the concept of economic accounting and system boundaries,
+in particular the role played by so-called externalities—air pollution,
+groundwater pollution, resource extraction, species loss.
+Many ideas have been proposed, however very little has actually been accomplished,
+in terms of actually having these external costs recognized and acted
+upon.
+What are the policy limitations or special interests that prevent western governments
+from changing their perspectives on the interpretation and calculation
+of GDP?
+References
+1. Special issue on the singularity, IEEE Spectrum 45, 6 (2008)
+2. J. Diamond, Collapse: How Societies Choose to Fail or Succeed (Penguin, 2011)
+3. A. Ghosh, Dynamic Systems for Everyone: Understanding How Our World Works (Springer,
+Berlin, 2015)
+4. J. Greer, How Civilizations Fall: A Theory of Catabolic Collapse (2005). Unpublished
+5. R. Heinberg. Searching for a Miracle: Net Energy Limits and the Fate of Industrial Society
+(Post Carbon Institute, 2009)
+6. C. Hidalgo, Why Information Grows: The Evolution of Order, from Atoms to Economies (Basic
+Books, 2015)
+7. T. Homer-Dixon, TheUpside ofDown: Catastrophe,Creativity, and the Renewal of Civilization
+(Knopf, 2006)
+8. D. Meadows, Thinking in Systems: A Primer (Chelsea Green, 2008)
+9. D. Meadows, J. Randers, D.Meadows, Limits to Growth: The 30-Year Update (Chelsea Green,
+2004)
+10. H. Odum, Environmental Accounting: Emergy and Environmental Decision Making (Wiley,
+New York, 1996)
+11. H. Odum, Environment, Power, and Society for the Twenty-First Century (Columbia, 2007)
+12. J. Salatin, Salad Bar Beef (Polyface, 1996)
+13. S. Schaltegger, R. Burritt, Contemporary Environmental Accounting: Issues (Greenleaf Publishing,
+Concepts and Practice, 2000)
+14. E. Schumacher, Small is Beautiful: A Study of Economics as if People Mattered (Vintage
+Digital, 2011)
+15. J. Smillie, G. Gershuny. The Soul of Soil (Chelsea Green, 1999)
+4 The chapter can be found online at the Post Carbon Institute; a link is available from the
+textbook reading questions page.
+16. K. Stowe, An Introduction to Thermodynamics and Statistical Mechanics (Cambridge, 2007)
+17. J. Tainter, The Collapse of Complex Societies (Cambridge, 1990)
+18. M. Wackernagel, W. Rees, Our Ecological Footprint (New Society, 1995)
+19. J. Weaver, Root Development of Field Crops (McGraw Hill, 1926)
+20. R. Wright, A Short History of Progress (House of Anansi Press, 2004)
+
+
+
+
