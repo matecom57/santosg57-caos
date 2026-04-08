@@ -20,4 +20,5 @@ Contents
 
    Mathematical_Biology_I_An_Introduction_3E/index2
    A_Practical_Approach_Dynamical_Systems_Engineers_Patricia/index2
+   An_Intro_Chaotic_Dynamical_Systems_3E_Robert_Devaney/index2
 
